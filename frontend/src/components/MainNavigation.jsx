@@ -1,34 +1,28 @@
 "use client";
 
 import { NavLink } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Avatar,
-  Text,
-  Button,
-  useDisclosure,
-  useColorModeValue,
-  Stack,
-  useColorMode,
-  Center,
-} from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, Stack } from "@chakra-ui/react";
+import { Moon, Sun } from "lucide-react";
+import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
 
-const NavigationLink = (props) => {
-  const { children } = props;
+const NavigationLink = ({ to, children }) => {
+  const hoverBg = useColorModeValue("gray.200", "gray.700");
 
   return (
     <Box
-      as="a"
-      px={2}
-      py={1}
-      rounded={"md"}
+      as={NavLink}
+      to={to}
+      px={3}
+      py={2}
+      rounded="md"
       _hover={{
         textDecoration: "none",
-        bg: useColorModeValue("gray.200", "gray.700"),
+        backgroundColor: hoverBg,
       }}
-      href={"#"}
+      _currentPage={{
+        fontWeight: "bold",
+        color: useColorModeValue("teal.600", "teal.300"),
+      }}
     >
       {children}
     </Box>
@@ -36,28 +30,29 @@ const NavigationLink = (props) => {
 };
 
 export default function Nav() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Box
-        bg={useColorModeValue("gray.100", "gray.900")}
-        px={4}
-        width="calc(95vw)"
-      >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <NavLink to="/">Home</NavLink>
+  const { mode, toggle } = useColorMode(); // your custom hook
+  const bg = useColorModeValue("gray.100", "gray.900");
 
-          <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={7}>
-              <Button onClick={toggleColorMode}>
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-              <Button>Log-In/Sign-Up</Button>
-            </Stack>
-          </Flex>
-        </Flex>
-      </Box>
-    </>
+  return (
+    <Box bg={bg} px={4} width="100%">
+      <Flex h={16} alignItems="center" justifyContent="space-between">
+        <Stack direction="row" spacing={4}>
+          <NavigationLink to="/">Home</NavigationLink>
+        </Stack>
+
+        <Stack direction="row" spacing={4} align="center">
+          <Button
+            onClick={toggle}
+            aria-label="Toggle Color Mode"
+            colorScheme="gray"
+            variant="ghost"
+          >
+            {mode === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          </Button>
+
+          <Button variant="customModeAware">Log In / Sign Up</Button>
+        </Stack>
+      </Flex>
+    </Box>
   );
 }

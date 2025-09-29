@@ -34,7 +34,7 @@ export default function MovieTrailer() {
     filteredVideos && (
       <iframe
         width="50%"
-        height="620"
+        height="545"
         title="YouTube Video Player"
         src={`https://www.youtube.com/embed/${filteredVideos[0].key}`}
         allowFullScreen

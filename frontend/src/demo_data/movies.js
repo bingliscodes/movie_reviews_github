@@ -1,33 +1,43 @@
 export const movies = [
   {
+    id: 1,
     title: "Demon Slayer Movie",
     img: "https://dx35vtwkllhj9.cloudfront.net/crunchy-roll/demon-slayer-infinity-castle/images/regions/intl/onesheet.jpg",
     rating: 5,
-    releaseDate: "2025-08-01",
+    release_date: "2025-08-01",
+    year: 2025,
   },
   {
+    id: 2,
     title: "Black Panther",
     img: "https://m.media-amazon.com/images/I/81dae9nZFBS._UF894,1000_QL80_.jpg",
     rating: 4,
-    releaseDate: "2024-02-01",
+    release_date: "2024-02-01",
+    year: 2024,
   },
   {
+    id: 3,
     title: "Pearl",
     img: "https://substackcdn.com/image/fetch/$s_!SjlY!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F289ad232-bb03-4b07-848c-d0dad888a4dc_2000x2963.png",
     rating: 4.5,
-    releaseDate: "2023-01-01",
+    release_date: "2023-01-01",
+    year: 2023,
   },
   {
+    id: 4,
     title: "Jaws",
     img: "https://images.photowall.com/products/51078/movie-poster-jaws.jpg?h=699&q=85",
     rating: 4.5,
-    releaseDate: "2023-01-01",
+    release_date: "2023-01-01",
+    year: 2023,
   },
   {
+    id: 5,
     title: "Moonlight",
     img: "https://posterhouse.org/wp-content/uploads/2021/05/moonlight_0.jpg",
     rating: 4.5,
-    releaseDate: "2023-01-01",
+    release_date: "2023-01-01",
+    year: 2023,
   },
 ];
 

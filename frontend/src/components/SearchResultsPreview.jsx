@@ -1,14 +1,16 @@
 import SearchResultsPreviewCard from "./SearchResultsPreviewCard";
+import { movies } from "../demo_data/movies";
 
 export default function SearchResultsPreview({ searchResults }) {
-  // TODO: For each element in search results, generate a preview card
   // Filter results to movies for now, then we can addd functionality for people and tv
 
   if (!searchResults) return;
 
-  const filteredResults = searchResults.filter(
-    (res) => res.media_type === "movie"
-  );
+  // const filteredResults = searchResults.filter(
+  //   (res) => res.media_type === "movie"
+  // );
+  const filteredResults = movies;
+  console.log(filteredResults);
 
   return (
     filteredResults &&
@@ -24,4 +26,3 @@ export default function SearchResultsPreview({ searchResults }) {
     ))
   );
 }
-// This component will render the list of preview cards by iterating through the search results

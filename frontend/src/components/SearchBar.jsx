@@ -13,16 +13,18 @@ export default function SearchBar() {
     //TODO: finish implementing once we have a search card
   }, 500);
 
-  console.log(searchResults);
+  //console.log(searchResults);
   return (
-    <Center flexDirection="column">
-      <Input
-        placeholder={"Search a movie or show to get started"}
-        marginTop={12}
-        w="calc(50vw)"
-        onChange={debounceOnChange}
-      />
-      <SearchResultsPreview searchResults={searchResults} />
-    </Center>
+    <>
+      <Center flexDirection="column">
+        <Input
+          placeholder={"Search a movie or show to get started"}
+          marginTop={12}
+          w="calc(50vw)"
+          onChange={debounceOnChange}
+        />
+        <SearchResultsPreview searchResults={searchResults} />
+      </Center>
+    </>
   );
 }

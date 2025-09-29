@@ -1,11 +1,4 @@
-import {
-  Card,
-  Image,
-  Text,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from "@chakra-ui/react";
+import { Card, Image, Text } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +9,7 @@ export default function CarouselCard({ title, img, rating, releaseDate, id }) {
   };
 
   return (
-    <Card
+    <Card.Root
       maxW="sm"
       width="auto"
       height="auto"
@@ -26,7 +19,7 @@ export default function CarouselCard({ title, img, rating, releaseDate, id }) {
       justifyContent="space-between"
       onClick={handleClick}
     >
-      <CardHeader p="0" height="55%">
+      <Card.Header p="0" height="55%">
         <Image
           src={img}
           alt={`Cover image for ${title}`}
@@ -34,18 +27,18 @@ export default function CarouselCard({ title, img, rating, releaseDate, id }) {
           width="100%"
           height="100%"
         />
-      </CardHeader>
+      </Card.Header>
 
-      <CardBody p="3" flex="1">
+      <Card.Body p="3" flex="1">
         <Text fontSize="md" fontWeight="bold" noOfLines={2}>
           {title}
         </Text>
-      </CardBody>
+      </Card.Body>
 
-      <CardFooter p="3" justifyContent="space-between">
+      <Card.Footer p="3" justifyContent="space-between">
         <Text fontSize="sm">⭐ {Math.round(rating * 10) / 10}</Text>
         <Text fontSize="sm">{new Date(releaseDate).toLocaleDateString()}</Text>
-      </CardFooter>
-    </Card>
+      </Card.Footer>
+    </Card.Root>
   );
 }
