@@ -73,7 +73,7 @@ export default function MovieDetails() {
               bottom: "0px",
               left: "0px",
               bgAttachment: "fixed",
-              bgImage: `url(https://image.tmdb.org/t/p/w1280/${movieData.poster_path})`,
+              bgImage: `url(https://image.tmdb.org/t/p/original/${movieData.backdrop_path})`,
               opacity: "30%",
             }}
           >
