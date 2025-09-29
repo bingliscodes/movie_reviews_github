@@ -1,0 +1,50 @@
+export const movies = [
+  {
+    title: "Demon Slayer Movie",
+    img: "https://dx35vtwkllhj9.cloudfront.net/crunchy-roll/demon-slayer-infinity-castle/images/regions/intl/onesheet.jpg",
+    rating: 5,
+    releaseDate: "2025-08-01",
+  },
+  {
+    title: "Black Panther",
+    img: "https://m.media-amazon.com/images/I/81dae9nZFBS._UF894,1000_QL80_.jpg",
+    rating: 4,
+    releaseDate: "2024-02-01",
+  },
+  {
+    title: "Pearl",
+    img: "https://substackcdn.com/image/fetch/$s_!SjlY!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F289ad232-bb03-4b07-848c-d0dad888a4dc_2000x2963.png",
+    rating: 4.5,
+    releaseDate: "2023-01-01",
+  },
+  {
+    title: "Jaws",
+    img: "https://images.photowall.com/products/51078/movie-poster-jaws.jpg?h=699&q=85",
+    rating: 4.5,
+    releaseDate: "2023-01-01",
+  },
+  {
+    title: "Moonlight",
+    img: "https://posterhouse.org/wp-content/uploads/2021/05/moonlight_0.jpg",
+    rating: 4.5,
+    releaseDate: "2023-01-01",
+  },
+];
+
+export const demoMovie = {
+  adult: false,
+  backdrop_path: "/j7MKdRIwfJejNlJQG1hzjFJmtlH.jpg",
+  genre_ids: [16, 28, 14, 53],
+  id: 1311031,
+  original_language: "ja",
+  original_title: "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
+  overview:
+    "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
+  popularity: 615.5306,
+  poster_path: "/sUsVimPdA1l162FvdBIlmKBlWHx.jpg",
+  release_date: "2025-07-18",
+  title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
+  video: false,
+  vote_average: 7.814,
+  vote_count: 342,
+};
