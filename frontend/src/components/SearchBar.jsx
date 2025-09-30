@@ -1,26 +1,32 @@
 "use client";
 
 import { Input, Center, Box, Button, Menu, Portal } from "@chakra-ui/react";
-import { useRef } from "react";
-
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchSearchResults } from "../utils/js/apiCalls";
 import { debounce } from "lodash";
 
-import SearchResultsPreview from "./SearchResultsPreview";
 import SearchResultsPreviewCard from "./SearchResultsPreviewCard";
 
 export default function SearchBar() {
+  const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState();
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+  console.log(searchResults);
   const debounceOnChange = debounce(async (e) => {
     const searchRes = await fetchSearchResults(e.target.value);
-    setSearchResults(searchRes);
+    setSearchResults(searchRes.slice(10));
+    setMenuIsOpen(searchRes.length === 0 ? false : true);
   }, 500);
 
+  // TODO: Get the search previews to close when the user clicks outside of the Input or menu component
+  // TODO: Use first_air_date field for media_type = tv
+  // TODO: Group menu items by type
+  // TODO: Determine if there is a way to get actors without making 10 api calls each time a search is made
+  // Currently we have to Get actors by making call to the movie/movie_id/credits endpoint, then take the first 2 and list them
   const ref = useRef();
   const getAnchorRect = () => ref.current.getBoundingClientRect();
-  //console.log(searchResults);
   return (
     <>
       <Center flexDirection="column">
@@ -31,29 +37,26 @@ export default function SearchBar() {
           onChange={debounceOnChange}
           ref={ref}
         />
-        <SearchResultsPreview searchResults={searchResults} />
-        <Menu.Root positioning={{ getAnchorRect }}>
-          <Menu.Trigger asChild>
-            <Button variant="outline" size="sm">
-              Open
-            </Button>
-          </Menu.Trigger>
-          {/* // TODO: Populate the menu items with the preview cards */}
+        <Menu.Root open={menuIsOpen} positioning={{ getAnchorRect }}>
           <Portal>
-            <Menu.Positioner>
+            <Menu.Positioner width="50%">
               <Menu.Content>
-                <Menu.Item value="new-txt">
-                  <SearchResultsPreviewCard
-                    title="demo movie"
-                    img={`https://image.tmdb.org/t/p/w500/48KYBYnHmt7ykX57zGuv6SXVZOO.jpg`}
-                    year={2024}
-                    actors={["Bookie", "Cannoli"]}
-                  />
-                </Menu.Item>
-                <Menu.Item value="new-file">New File...</Menu.Item>
-                <Menu.Item value="new-win">New Window</Menu.Item>
-                <Menu.Item value="open-file">Open File...</Menu.Item>
-                <Menu.Item value="export">Export</Menu.Item>
+                {searchResults &&
+                  searchResults.map((res) => (
+                    <Menu.Item
+                      key={res.id}
+                      value={res.id}
+                      onClick={() => navigate(`/movie/${res.id}`)}
+                    >
+                      <SearchResultsPreviewCard
+                        key={res.id}
+                        title={res.title}
+                        img={`https://image.tmdb.org/t/p/w500/${res.poster_path}`}
+                        year={res.release_date?.substring(0, 4)}
+                        actors={["Bookie", "Cannoli"]}
+                      />
+                    </Menu.Item>
+                  ))}
               </Menu.Content>
             </Menu.Positioner>
           </Portal>

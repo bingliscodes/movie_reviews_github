@@ -67,6 +67,7 @@ export const fetchData = async () => {
 
 export const fetchMovieDetails = async (movieId) => {
   try {
+    // Top level details
     const movieRes = await axios({
       method: "GET",
       url: `https://api.themoviedb.org/3/movie/${movieId}`,
@@ -76,15 +77,7 @@ export const fetchMovieDetails = async (movieId) => {
     if (movieRes.status !== 200)
       throw new Error("Failed to fetch movie details");
 
-    //TODO: Refactor to respond with JSON objects?
-    return movieRes.data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const fetchMovieTrailers = async (movieId) => {
-  try {
+    // Trailers
     const trailerRes = await axios({
       method: "GET",
       url: `https://api.themoviedb.org/3/movie/${movieId}/videos`,
@@ -92,9 +85,23 @@ export const fetchMovieTrailers = async (movieId) => {
     });
 
     if (trailerRes.status !== 200)
-      throw new Error("Failed to fetch movie details");
+      throw new Error("Failed to fetch movie trailers");
 
-    return trailerRes.data.results;
+    // Credits
+    const creditsRes = await axios({
+      method: "GET",
+      url: `https://api.themoviedb.org/3/movie/${movieId}/credits`,
+      headers,
+    });
+
+    if (creditsRes.status !== 200)
+      throw new Error("Failed to fetch movie credits");
+
+    return {
+      movieDetails: movieRes.data,
+      movieTrailers: trailerRes.data.results,
+      movieCredits: creditsRes.data.cast,
+    };
   } catch (err) {
     console.error(err);
   }
@@ -111,7 +118,7 @@ export const fetchSearchResults = async (searchStr) => {
     });
 
     if (searchRes.status !== 200)
-      throw new Error("Failed to fetch movie details");
+      throw new Error("Failed to fetch search results");
 
     return searchRes.data.results;
   } catch (err) {

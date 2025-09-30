@@ -33,7 +33,8 @@ export default function MovieDetails() {
     setLoading(true);
     fetchMovieDetails(movieId)
       .then((data) => {
-        setMovieData(data);
+        const { movieDetails } = data;
+        setMovieData(movieDetails);
         setLoading(false);
       })
       .catch((err) => {

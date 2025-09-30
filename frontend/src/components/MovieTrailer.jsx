@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchMovieTrailers } from "../utils/js/apiCalls";
+import { fetchMovieDetails } from "../utils/js/apiCalls";
 
 export default function MovieTrailer() {
   const [filteredVideos, setFilteredVideos] = useState();
@@ -12,10 +12,13 @@ export default function MovieTrailer() {
   useEffect(() => {
     setLoading(true);
 
-    fetchMovieTrailers(movieId)
+    fetchMovieDetails(movieId)
       .then((data) => {
+        const { movieTrailers } = data;
         setFilteredVideos(
-          data.filter((el) => el.type === "Trailer" || el.type === "Teaser")
+          movieTrailers.filter(
+            (el) => el.type === "Trailer" || el.type === "Teaser"
+          )
         );
         setLoading(false);
       })
@@ -30,13 +33,14 @@ export default function MovieTrailer() {
 
   if (!filteredVideos) return <p>No Trailer Found</p>;
 
+  // TODO: Handle events where there are no trailers or the embed link is invalid
   return (
     filteredVideos && (
       <iframe
         width="50%"
         height="545"
         title="YouTube Video Player"
-        src={`https://www.youtube.com/embed/${filteredVideos[0].key}`}
+        src={`https://www.youtube.com/embed/${filteredVideos[0]?.key}`}
         allowFullScreen
       />
     )

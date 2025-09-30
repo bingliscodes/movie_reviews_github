@@ -1,10 +1,12 @@
 import { Box, Image, Text, Flex } from "@chakra-ui/react";
 
-export default function SearchResultsPreview({ title, img, year, actors }) {
+export default function SearchResultsPreviewCard({ title, img, year, actors }) {
   const [actor1, actor2] = actors;
   return (
     <Flex
-      maxW="400px"
+      // These dimensions affect the individual movie cards
+      width="100%"
+      height="auto"
       bg="gray.900"
       color="white"
       borderRadius="md"
