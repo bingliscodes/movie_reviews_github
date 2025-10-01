@@ -19,6 +19,7 @@ export default function SearchBar() {
     setSearchResults(searchRes.slice(10));
     setMenuIsOpen(searchRes.length === 0 ? false : true);
   }, 500);
+
   // TODO: Use first_air_date field for media_type = tv
   // TODO: Group menu items by type
   // TODO: Determine if there is a way to get actors without making 10 api calls each time a search is made

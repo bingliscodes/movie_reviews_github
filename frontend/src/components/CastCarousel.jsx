@@ -8,38 +8,36 @@ import {
   Container,
   Text,
 } from "@chakra-ui/react";
-// Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
-import CarouselCard from "../components/CarouselCard";
+
+import CastCard from "./CastCard";
 
 // Settings for the slider
 const settings = {
   dots: true,
   arrows: false,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   speed: 500,
   autoplaySpeed: 5000,
   slidesToShow: 5,
   slidesToScroll: 1,
 };
-
-export default function ChakraCarousel({ carouselData, title }) {
-  // As we have used custom buttons, we need a reference variable to change the state
-
+export default function CastCarousel({ movieCredits }) {
   const [slider, setSlider] = useState(null);
 
   // These are the breakpoints which changes the position of the buttons as the screen size changes
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
+  if (!movieCredits) return <Center>No movie credits data</Center>;
+
+  const { cast } = movieCredits;
+
   return (
     <Container maxW="container.lg" centerContent>
-      <Text textAlign="left" textStyle="lg">
-        {title}
-      </Text>
       <Box
         position={"relative"}
         height={"auto"}
@@ -86,18 +84,14 @@ export default function ChakraCarousel({ carouselData, title }) {
         </IconButton>
         {/* Slider */}
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {carouselData.map((el, idx) => {
-            return (
-              <CarouselCard
-                key={idx}
-                img={el.img}
-                rating={el.rating}
-                title={el.title}
-                releaseDate={el.releaseDate}
-                id={el.id}
-              />
-            );
-          })}
+          {cast.map((el) => (
+            <CastCard
+              actorName={el.name}
+              characterName={el.chacacter}
+              img={el.profile_path}
+              id={el.id}
+            />
+          ))}
         </Slider>
       </Box>
     </Container>

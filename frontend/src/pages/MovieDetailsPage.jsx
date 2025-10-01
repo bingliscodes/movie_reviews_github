@@ -9,17 +9,17 @@ import {
   Image,
   Stack,
   Text,
-  Box,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { fetchMovieDetails } from "../utils/js/apiCalls";
-import MovieTrailer from "../components/MovieTrailer";
 import { useColorModeValue } from "@/components/ui/color-mode"; // Chakra v3 workaround
 
+import MovieTrailer from "../components/MovieTrailer";
+import CastCarousel from "../components/CastCarousel";
+
 export default function MovieDetails() {
-  const [movieData, setMovieData] = useState(null);
+  const [movieData, setMovieData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -30,21 +30,41 @@ export default function MovieDetails() {
   const badgeBg = useColorModeValue("gray.50", "gray.800");
 
   useEffect(() => {
-    setLoading(true);
-    fetchMovieDetails(movieId)
-      .then((data) => {
-        const { movieDetails } = data;
-        setMovieData(movieDetails);
-        setLoading(false);
-      })
-      .catch((err) => {
+    async function fetchMovieDetailsAsync() {
+      setLoading(true);
+      try {
+        const movieDataRes = await fetchMovieDetails(movieId);
+        setMovieData(movieDataRes);
+      } catch (err) {
         setError(err);
-        setLoading(false);
-      });
+        console.error(err);
+      }
+
+      setLoading(false);
+    }
+    fetchMovieDetailsAsync();
   }, [movieId]);
 
   if (loading) return <Center>Loading...</Center>;
   if (error) return <Center>Error loading data!</Center>;
+
+  if (!movieData || !movieData.movieDetails)
+    return <Center> No movie data available. </Center>;
+
+  const { movieDetails, movieTrailers, movieCredits } = movieData;
+
+  console.log(movieCredits);
+
+  let writers;
+  let directors;
+  let actors;
+  if (movieCredits.cast) {
+    actors = movieCredits.cast.filter((res) => res.job === "");
+  }
+  if (movieCredits.crew) {
+    directors = movieCredits.crew.filter((res) => res.job === "Director");
+    writers = movieCredits.crew.filter((res) => res.job === "Writer");
+  }
 
   return (
     movieData && (
@@ -69,7 +89,7 @@ export default function MovieDetails() {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieData.backdrop_path})`,
+              backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: 0.25,
@@ -82,8 +102,8 @@ export default function MovieDetails() {
                 objectFit="cover"
                 maxW="300px"
                 borderRadius="md"
-                src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`}
-                alt={`Poster image for ${movieData.title}`}
+                src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+                alt={`Poster image for ${movieDetails.title}`}
               />
             </Flex>
 
@@ -97,10 +117,10 @@ export default function MovieDetails() {
               zIndex={1}
             >
               <Heading fontSize="2xl">
-                {movieData.title} ({movieData.release_date.slice(0, 4)})
+                {movieDetails.title} ({movieDetails.release_date.slice(0, 4)})
               </Heading>
 
-              <Text color={textColor}>{movieData.overview}</Text>
+              <Text color={textColor}>{movieDetails.overview}</Text>
 
               {/* Genres */}
               <Stack
@@ -110,7 +130,7 @@ export default function MovieDetails() {
                 justify="center"
               >
                 <Text color={textColor}>Genres:</Text>
-                {movieData.genres?.map((genre) => (
+                {movieDetails.genres?.map((genre) => (
                   <Badge
                     key={genre.id}
                     px={2}
@@ -127,7 +147,7 @@ export default function MovieDetails() {
               {/* Buttons */}
               <Stack direction="row" mt={4}>
                 <Button variant="outline" rounded="full">
-                  Button1
+                  Add to wishlist
                 </Button>
                 <Button
                   rounded="full"
@@ -137,12 +157,23 @@ export default function MovieDetails() {
                   _focus={{ bg: "blue.500" }}
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                 >
-                  Button2
+                  Add to favorites
                 </Button>
               </Stack>
+              {directors &&
+                directors.map((dir) => (
+                  <Text key={dir.id}>Director: {dir.name}</Text>
+                ))}
+              {writers &&
+                writers.map((writer) => (
+                  <Text key={writer.id}>Writer: {writer.name}</Text>
+                ))}
             </Stack>
           </Stack>
         </Center>
+
+        {/* Cast Carousel*/}
+        <CastCarousel movieCredits={movieCredits} />
 
         {/* Movie Trailer Embed */}
         <MovieTrailer />

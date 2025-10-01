@@ -66,6 +66,7 @@ export const fetchData = async () => {
 };
 
 export const fetchMovieDetails = async (movieId) => {
+  console.log("Fetching Movie details...");
   try {
     // Top level details
     const movieRes = await axios({
@@ -100,7 +101,7 @@ export const fetchMovieDetails = async (movieId) => {
     return {
       movieDetails: movieRes.data,
       movieTrailers: trailerRes.data.results,
-      movieCredits: creditsRes.data.cast,
+      movieCredits: creditsRes.data,
     };
   } catch (err) {
     console.error(err);
@@ -123,5 +124,6 @@ export const fetchSearchResults = async (searchStr) => {
     return searchRes.data.results;
   } catch (err) {
     console.error(err);
+    throw err;
   }
 };
