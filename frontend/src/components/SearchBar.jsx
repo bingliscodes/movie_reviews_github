@@ -12,32 +12,43 @@ export default function SearchBar() {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const inputRef = useRef();
 
-  console.log(searchResults);
   const debounceOnChange = debounce(async (e) => {
     const searchRes = await fetchSearchResults(e.target.value);
     setSearchResults(searchRes.slice(10));
     setMenuIsOpen(searchRes.length === 0 ? false : true);
   }, 500);
-
-  // TODO: Get the search previews to close when the user clicks outside of the Input or menu component
   // TODO: Use first_air_date field for media_type = tv
   // TODO: Group menu items by type
   // TODO: Determine if there is a way to get actors without making 10 api calls each time a search is made
   // Currently we have to Get actors by making call to the movie/movie_id/credits endpoint, then take the first 2 and list them
-  const ref = useRef();
-  const getAnchorRect = () => ref.current.getBoundingClientRect();
+
+  const getAnchorRect = () => inputRef.current.getBoundingClientRect();
+
   return (
-    <>
-      <Center flexDirection="column">
+    <Center flexDirection="column">
+      <Box position="relative" width="50vw" mt={12}>
         <Input
           placeholder={"Search a movie or show to get started"}
-          marginTop={12}
           w="calc(50vw)"
           onChange={debounceOnChange}
-          ref={ref}
+          ref={inputRef}
         />
-        <Menu.Root open={menuIsOpen} positioning={{ getAnchorRect }}>
+        <Menu.Root
+          open={menuIsOpen}
+          positioning={{ getAnchorRect }}
+          onOpenChange={(change) => {
+            // change.open is the new open state
+            setMenuIsOpen(change.open);
+          }}
+          onInteractOutside={() => {
+            setMenuIsOpen(false);
+          }}
+          onEscapeKeyDown={() => {
+            setMenuIsOpen(false);
+          }}
+        >
           <Portal>
             <Menu.Positioner width="50%">
               <Menu.Content>
@@ -46,7 +57,10 @@ export default function SearchBar() {
                     <Menu.Item
                       key={res.id}
                       value={res.id}
-                      onClick={() => navigate(`/movie/${res.id}`)}
+                      onClick={() => {
+                        navigate(`/movie/${res.id}`);
+                        setMenuIsOpen(false);
+                      }}
                     >
                       <SearchResultsPreviewCard
                         key={res.id}
@@ -61,7 +75,7 @@ export default function SearchBar() {
             </Menu.Positioner>
           </Portal>
         </Menu.Root>
-      </Center>
-    </>
+      </Box>
+    </Center>
   );
 }

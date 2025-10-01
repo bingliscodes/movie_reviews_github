@@ -83,7 +83,7 @@ export default function MovieDetails() {
                 maxW="300px"
                 borderRadius="md"
                 src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`}
-                alt={`Cover image for ${movieData.title}`}
+                alt={`Poster image for ${movieData.title}`}
               />
             </Flex>
 
