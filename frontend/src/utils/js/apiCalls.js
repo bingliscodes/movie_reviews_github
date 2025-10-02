@@ -65,43 +65,44 @@ export const fetchData = async () => {
   }
 };
 
-export const fetchMovieDetails = async (movieId) => {
-  console.log("Fetching Movie details...");
+export const fetchMediaDetails = async (mediaType, mediaId) => {
+  console.log("Fetching media details...");
+  console.log(mediaType, mediaId);
   try {
     // Top level details
-    const movieRes = await axios({
+    const mediaRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/movie/${movieId}`,
+      url: `https://api.themoviedb.org/3/${mediaType}/${mediaId}`,
       headers,
     });
 
-    if (movieRes.status !== 200)
-      throw new Error("Failed to fetch movie details");
+    if (mediaRes.status !== 200)
+      throw new Error("Failed to fetch media details");
 
     // Trailers
     const trailerRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/movie/${movieId}/videos`,
+      url: `https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos`,
       headers,
     });
 
     if (trailerRes.status !== 200)
-      throw new Error("Failed to fetch movie trailers");
+      throw new Error("Failed to fetch media trailers");
 
     // Credits
     const creditsRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/movie/${movieId}/credits`,
+      url: `https://api.themoviedb.org/3/${mediaType}/${mediaId}/credits`,
       headers,
     });
 
     if (creditsRes.status !== 200)
-      throw new Error("Failed to fetch movie credits");
+      throw new Error("Failed to fetch media credits");
 
     return {
-      movieDetails: movieRes.data,
-      movieTrailers: trailerRes.data.results,
-      movieCredits: creditsRes.data,
+      mediaDetails: mediaRes.data,
+      mediaTrailers: trailerRes.data.results,
+      mediaCredits: creditsRes.data,
     };
   } catch (err) {
     console.error(err);

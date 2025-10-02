@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchMovieDetails } from "../utils/js/apiCalls";
+import { fetchMediaDetails } from "../utils/js/apiCalls";
 
 export default function MovieTrailer() {
   const [filteredVideos, setFilteredVideos] = useState();
@@ -12,9 +12,9 @@ export default function MovieTrailer() {
   useEffect(() => {
     setLoading(true);
 
-    fetchMovieDetails(movieId)
+    fetchMediaDetails("movie", movieId)
       .then((data) => {
-        const { movieTrailers } = data;
+        const { mediaTrailers: movieTrailers } = data;
         setFilteredVideos(
           movieTrailers.filter(
             (el) => el.type === "Trailer" || el.type === "Teaser"

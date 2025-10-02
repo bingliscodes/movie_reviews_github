@@ -25,7 +25,7 @@ export default function CastCard({ actorName, characterName, img, id }) {
         <Text fontSize="md" fontWeight="bold" noOfLines={2}>
           {actorName}
         </Text>
-        <Text fonrSize="sm">{characterName}</Text>
+        <Text fontSize="sm">{characterName}</Text>
       </Card.Body>
     </Card.Root>
   );

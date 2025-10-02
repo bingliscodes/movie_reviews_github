@@ -19,14 +19,14 @@ const settings = {
   dots: true,
   arrows: false,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   speed: 500,
   autoplaySpeed: 5000,
   slidesToShow: 5,
   slidesToScroll: 1,
 };
 
-export default function ChakraCarousel({ carouselData, title }) {
+export default function ChakraCarousel({ carouselData, title, type }) {
   // As we have used custom buttons, we need a reference variable to change the state
 
   const [slider, setSlider] = useState(null);
@@ -95,6 +95,7 @@ export default function ChakraCarousel({ carouselData, title }) {
                 title={el.title}
                 releaseDate={el.releaseDate}
                 id={el.id}
+                type={type}
               />
             );
           })}

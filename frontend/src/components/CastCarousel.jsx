@@ -7,6 +7,7 @@ import {
   useBreakpointValue,
   Container,
   Text,
+  Center,
 } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
@@ -25,25 +26,26 @@ const settings = {
   slidesToShow: 5,
   slidesToScroll: 1,
 };
-export default function CastCarousel({ movieCredits }) {
+export default function CastCarousel({ credits }) {
   const [slider, setSlider] = useState(null);
 
   // These are the breakpoints which changes the position of the buttons as the screen size changes
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
-  if (!movieCredits) return <Center>No movie credits data</Center>;
+  if (!credits) return <Center>No movie credits data</Center>;
 
-  const { cast } = movieCredits;
+  const { cast } = credits;
 
   return (
     <Container maxW="container.lg" centerContent>
+      <Text fontSize="xx-large"> Cast </Text>
       <Box
         position={"relative"}
         height={"auto"}
         width={"full"}
         overflow={"hidden"}
-        py={"2em"}
+        py={"1em"}
       >
         {/* CSS files for react-slick */}
         <link

@@ -2,10 +2,17 @@ import { Card, Image, Text } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 
-export default function CarouselCard({ title, img, rating, releaseDate, id }) {
+export default function CarouselCard({
+  title,
+  img,
+  rating,
+  releaseDate,
+  id,
+  type,
+}) {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/movie/${id}`);
+    navigate(`/${type}/${id}`);
   };
 
   return (

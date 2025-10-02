@@ -82,18 +82,22 @@ export default function HomePage() {
       <ChakraCarousel
         carouselData={popularMovieCarouselData}
         title="Popular Movies"
+        type="movie"
       />
       <ChakraCarousel
         carouselData={trendingMovieCarouselData}
         title="Trending Movies"
+        type="movie"
       />
       <ChakraCarousel
         carouselData={popularShowCarouselData}
         title="Popular Shows"
+        type="tv"
       />
       <ChakraCarousel
         carouselData={trendingShowCarouselData}
         title="Trending Shows"
+        type="tv"
       />
     </>
   );
