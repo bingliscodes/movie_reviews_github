@@ -15,7 +15,6 @@ import { useParams } from "react-router-dom";
 import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
-import MovieTrailer from "../components/MovieTrailer";
 import CastCarousel from "../components/CastCarousel";
 
 export default function TvDetails() {
@@ -35,7 +34,6 @@ export default function TvDetails() {
       try {
         const tvDataRes = await fetchMediaDetails("tv", tvId);
         setTvData(tvDataRes);
-        console.log(tvDataRes);
       } catch (err) {
         setError(err);
         console.error(err);

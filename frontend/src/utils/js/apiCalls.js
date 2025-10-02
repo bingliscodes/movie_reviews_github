@@ -66,8 +66,6 @@ export const fetchData = async () => {
 };
 
 export const fetchMediaDetails = async (mediaType, mediaId) => {
-  console.log("Fetching media details...");
-  console.log(mediaType, mediaId);
   try {
     // Top level details
     const mediaRes = await axios({
