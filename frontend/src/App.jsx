@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import MovieDetails from "./pages/MovieDetailsPage";
 import TvDetails from "./pages/TvDetailsPage";
 import UserDetails from "./components/User/UserDetails";
+import Login from "./pages/LoginPage";
+import Signup from "./pages/SignupPage";
 
 import "./App.css";
 
@@ -20,6 +22,8 @@ function App() {
           path="/user/:userId"
           element={<UserDetails userData={demoUser} />}
         />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Route>
     </Routes>
   );

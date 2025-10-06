@@ -8,13 +8,15 @@ export const getAllUsers = getAll(User);
 
 export const getUser = getOne(User);
 
-export const addToMovieWatchList = catchAsync(async (req, res, next) => {
-  console.log(req.user);
-  console.log(req.body.movieId);
+export const addToList = catchAsync(async (req, res, next) => {
+  /* 
+    The request should contain the name of the list that will be updated and the id to add. 
+ */
+  const { listName, mediaId } = req.body;
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
-    { $push: { movieWatchList: req.body.movieId } },
+    { $push: { [listName]: mediaId } },
     { new: true },
   );
 

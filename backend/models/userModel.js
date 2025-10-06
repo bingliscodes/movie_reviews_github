@@ -38,8 +38,10 @@ const userSchema = new mongoose.Schema(
     },
     movieWishList: Array,
     movieWatchList: Array,
+    movieFavoriteList: Array,
     tvWishList: Array,
     tvWatchList: Array,
+    tvFavoriteList: Array,
   },
   {
     toJSON: { virtuals: true },

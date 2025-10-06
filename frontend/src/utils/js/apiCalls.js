@@ -126,3 +126,25 @@ export const fetchSearchResults = async (searchStr) => {
     throw err;
   }
 };
+
+export const signUp = async (formData) => {
+  const { name, email, password, passwordConfirm } = formData;
+  try {
+    const newUserRes = await axios({
+      method: "POST",
+      url: `http://127.0.0.1:3000/api/v1/users/signup`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        name,
+        email,
+        password,
+        passwordConfirm,
+      },
+    });
+
+    console.log(newUserRes);
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};

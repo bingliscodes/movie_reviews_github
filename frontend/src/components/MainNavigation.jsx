@@ -1,10 +1,11 @@
 "use client";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Box, Flex, Button, Stack } from "@chakra-ui/react";
 import { useColorModeValue, ColorModeButton } from "@/components/ui/color-mode";
 
 export default function MainNavigation() {
+  const nav = useNavigate();
   const bgColor = useColorModeValue("gray.300", "gray.900");
   const buttonBgColor = useColorModeValue("gray.900", "#192841");
   const buttonTextColor = useColorModeValue("white", "white");
@@ -19,8 +20,19 @@ export default function MainNavigation() {
         <Stack direction="row" spacing={4} align="center">
           <ColorModeButton bg={buttonBgColor} color={buttonTextColor} />
 
-          <Button bg={buttonBgColor} color={buttonTextColor}>
-            Log In / Sign Up
+          <Button
+            bg={buttonBgColor}
+            color={buttonTextColor}
+            onClick={() => nav("/login")}
+          >
+            Log In
+          </Button>
+          <Button
+            bg={buttonBgColor}
+            color={buttonTextColor}
+            onClick={() => nav("/signup")}
+          >
+            Sign Up
           </Button>
         </Stack>
       </Flex>

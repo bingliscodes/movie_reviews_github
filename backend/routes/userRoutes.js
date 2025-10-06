@@ -8,7 +8,7 @@ import {
 import {
   getAllUsers,
   getUser,
-  addToMovieWatchList,
+  addToList,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -24,6 +24,8 @@ router.route('/').get(getAllUsers);
 
 router.route('/:id').get(getUser);
 
-router.route('/:id/watchedMovies').post(addToMovieWatchList);
+router.route('/:id/watched').post(addToList);
+router.route('/:id/wish').post(addToList);
+router.route('/:id/favorites').post(addToList);
 
 export default router;
