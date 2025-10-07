@@ -14,7 +14,7 @@ export default function SignupCard() {
 
     signup(entries);
 
-    //TODO: Only submit form when all fields are populated. Should I handle this on front end or back end?
+    // TODO: Only submit form when all fields are populated. Should I handle this on front end or back end?
     // Clear form fields upon submission
   }
 
@@ -22,8 +22,14 @@ export default function SignupCard() {
     <form onSubmit={handleSubmit}>
       <Stack gap="4" pt={6}>
         <Field.Root>
-          <Field.Label>Full Name</Field.Label>
-          <Input type="text" placeholder="full name" name="name" />
+          <Field.Label>First Name</Field.Label>
+          <Input type="text" placeholder="full name" name="firstName" />
+          <Field.ErrorText></Field.ErrorText>
+        </Field.Root>
+
+        <Field.Root>
+          <Field.Label>Last Name</Field.Label>
+          <Input type="text" placeholder="full name" name="lastName" />
           <Field.ErrorText></Field.ErrorText>
         </Field.Root>
 

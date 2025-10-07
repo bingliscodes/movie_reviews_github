@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Box, Flex, Button, Stack } from "@chakra-ui/react";
 import { useColorModeValue, ColorModeButton } from "@/components/ui/color-mode";
 
+import { logout } from "../utils/js/apiCalls";
+
 export default function MainNavigation() {
   const nav = useNavigate();
   const bgColor = useColorModeValue("gray.300", "gray.900");
@@ -33,6 +35,9 @@ export default function MainNavigation() {
             onClick={() => nav("/signup")}
           >
             Sign Up
+          </Button>
+          <Button bg={buttonBgColor} color={buttonTextColor} onClick={logout}>
+            Log Out
           </Button>
         </Stack>
       </Flex>

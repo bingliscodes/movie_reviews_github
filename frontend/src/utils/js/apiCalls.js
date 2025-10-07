@@ -130,17 +130,16 @@ export const fetchSearchResults = async (searchStr) => {
 export const signup = async (formData) => {
   const { name, email, password, passwordConfirm } = formData;
   try {
-    const newUserRes = await axios({
-      method: "POST",
-      url: `http://127.0.0.1:3000/api/v1/users/signup`,
-      headers: { "Content-Type": "application/json" },
-      data: {
+    const newUserRes = await axios.post(
+      "http://localhost:3000/api/v1/users/signup",
+      {
         name,
         email,
         password,
         passwordConfirm,
       },
-    });
+      { withCredentials: true }
+    );
 
     console.log(newUserRes);
   } catch (err) {
@@ -149,14 +148,6 @@ export const signup = async (formData) => {
   }
 };
 
-// In the React course he saves the token and expiration to the browser localstorage
-// The logout function removes the token and expiration and redirects to the home page
-// In the backend course we use the protect middleware to get the token from the request and only allow access if token is valid
-// What I am not understanding is how to get from front end user to backend request with token. Do I have to specify the token in the axios requests?
-// I know that the request sends cookies, then the cookies are automatically used somehow? The Jonas course stores a jwt as a cookie. That may be the step I'm missing.
-// It seems the jwt cookie is being stored upon login, but when i refresh the page the Cookie is lost. However in the backend course, the Cookie persists accross refresh. Perhaps because I'm sending the cookie to the wrong place?
-// The issue may be cross-domain resource sharing.
-// I tried adding crossDOmain and xhrFields headers but that didn't work.
 export const login = async (formData) => {
   const { email, password } = formData;
   try {
@@ -167,28 +158,74 @@ export const login = async (formData) => {
         withCredentials: true,
       }
     );
-    //  axios({
-    //   method: "POST",
-    //   url: `http://127.0.0.1:3000/api/v1/users/login`,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     crossDomain: true,
-    //     xhrFields: { withCredentials: true },
-    //   },
-    //   data: {
-    //     email,
-    //     password,
-    //   },
-    // });
 
     if (!loggedInUser.status === 200) {
       throw new Error(
         "Failed to login user. Make sure email and password are correct."
       );
     }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
 
-    console.log(loggedInUser);
-    // TODO: What do I do with the token?
+export const logout = async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/api/v1/users/logout", {
+      withCredentials: true,
+    });
+    if (res.data.status === "sucess") location.reload(true);
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const getWatched = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:3000/api/v1/users/me/watched",
+      {
+        withCredentials: true,
+      }
+    );
+
+    if (res.status !== 200) throw new Error("Failed to fetch user details");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const fetchUserData = async () => {
+  try {
+    const userData = await axios.get("http://localhost:3000/api/v1/users/me", {
+      withCredentials: true,
+    });
+
+    if (userData.status !== 200)
+      throw new Error("Failed to fetch user details");
+
+    return userData.data.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const addToList = async (listName, mediaId) => {
+  try {
+    const res = await axios.post(
+      "http://localhost:3000/api/v1/users/me/watched",
+      {
+        listName,
+        mediaId,
+      },
+      { withCredentials: true }
+    );
+
+    if (res.status !== 200) throw new Error("Failed to add to list");
   } catch (err) {
     console.error(err);
     throw err;

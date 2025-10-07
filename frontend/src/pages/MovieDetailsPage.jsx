@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMediaDetails } from "../utils/js/apiCalls";
+import { fetchMediaDetails, addToList } from "../utils/js/apiCalls";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
 import MovieTrailer from "../components/MovieTrailer";
@@ -155,6 +155,7 @@ export default function MovieDetails() {
                   _hover={{ bg: "blue.500" }}
                   _focus={{ bg: "blue.500" }}
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() => addToList("movieWatchList", movieDetails.id)}
                 >
                   Add to favorites
                 </Button>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Field, Input, Stack, Button } from "@chakra-ui/react";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { login } from "../utils/js/apiCalls";
