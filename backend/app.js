@@ -10,18 +10,18 @@ const app = express();
 import userRouter from './routes/userRoutes.js';
 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://127.0.0.1:3000'], // allow both in dev
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'xhrFields', 'crossDomain'],
+  origin: ['http://localhost:5173'], // allow both in dev
   credentials: true, // if you’re sending cookies / auth headers
 };
+
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-app.use(cors(corsOptions));
 // app.use(cors());
+
 app.use(compression());
 
 // ROUTES

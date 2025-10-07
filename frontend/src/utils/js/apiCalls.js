@@ -160,19 +160,26 @@ export const signup = async (formData) => {
 export const login = async (formData) => {
   const { email, password } = formData;
   try {
-    const loggedInUser = await axios({
-      method: "POST",
-      url: `http://127.0.0.1:3000/api/v1/users/login`,
-      headers: {
-        "Content-Type": "application/json",
-        crossDomain: true,
-        xhrFields: { withCredentials: true },
-      },
-      data: {
-        email,
-        password,
-      },
-    });
+    const loggedInUser = await axios.post(
+      "http://localhost:3000/api/v1/users/login",
+      { email, password },
+      {
+        withCredentials: true,
+      }
+    );
+    //  axios({
+    //   method: "POST",
+    //   url: `http://127.0.0.1:3000/api/v1/users/login`,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     crossDomain: true,
+    //     xhrFields: { withCredentials: true },
+    //   },
+    //   data: {
+    //     email,
+    //     password,
+    //   },
+    // });
 
     if (!loggedInUser.status === 200) {
       throw new Error(
