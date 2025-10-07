@@ -1,19 +1,10 @@
 "use client";
 
-import {
-  Flex,
-  Box,
-  Field,
-  Input,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  Link,
-} from "@chakra-ui/react";
+import { Field, Input, Stack, Button } from "@chakra-ui/react";
 import { useState } from "react";
-
 import { NavLink } from "react-router-dom";
+
+import { login } from "../utils/js/apiCalls";
 
 export default function SignupCard() {
   function handleSubmit(e) {
@@ -21,7 +12,8 @@ export default function SignupCard() {
 
     const formData = new FormData(e.target);
     const entries = Object.fromEntries(formData.entries());
-    console.log(entries);
+
+    login(entries);
   }
 
   return (

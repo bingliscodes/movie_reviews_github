@@ -1,20 +1,9 @@
 "use client";
 
-import {
-  Flex,
-  Box,
-  Field,
-  Input,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  Link,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Field, Input, Stack, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
-import { signUp } from "../utils/js/apiCalls";
+import { signup } from "../utils/js/apiCalls";
 
 export default function SignupCard() {
   function handleSubmit(e) {
@@ -23,7 +12,10 @@ export default function SignupCard() {
     const formData = new FormData(e.target);
     const entries = Object.fromEntries(formData.entries());
 
-    signUp(entries);
+    signup(entries);
+
+    //TODO: Only submit form when all fields are populated. Should I handle this on front end or back end?
+    // Clear form fields upon submission
   }
 
   return (

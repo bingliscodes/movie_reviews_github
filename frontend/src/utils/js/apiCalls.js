@@ -127,7 +127,7 @@ export const fetchSearchResults = async (searchStr) => {
   }
 };
 
-export const signUp = async (formData) => {
+export const signup = async (formData) => {
   const { name, email, password, passwordConfirm } = formData;
   try {
     const newUserRes = await axios({
@@ -143,6 +143,45 @@ export const signUp = async (formData) => {
     });
 
     console.log(newUserRes);
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+// In the React course he saves the token and expiration to the browser localstorage
+// The logout function removes the token and expiration and redirects to the home page
+// In the backend course we use the protect middleware to get the token from the request and only allow access if token is valid
+// What I am not understanding is how to get from front end user to backend request with token. Do I have to specify the token in the axios requests?
+// I know that the request sends cookies, then the cookies are automatically used somehow? The Jonas course stores a jwt as a cookie. That may be the step I'm missing.
+// It seems the jwt cookie is being stored upon login, but when i refresh the page the Cookie is lost. However in the backend course, the Cookie persists accross refresh. Perhaps because I'm sending the cookie to the wrong place?
+// The issue may be cross-domain resource sharing.
+// I tried adding crossDOmain and xhrFields headers but that didn't work.
+export const login = async (formData) => {
+  const { email, password } = formData;
+  try {
+    const loggedInUser = await axios({
+      method: "POST",
+      url: `http://127.0.0.1:3000/api/v1/users/login`,
+      headers: {
+        "Content-Type": "application/json",
+        crossDomain: true,
+        xhrFields: { withCredentials: true },
+      },
+      data: {
+        email,
+        password,
+      },
+    });
+
+    if (!loggedInUser.status === 200) {
+      throw new Error(
+        "Failed to login user. Make sure email and password are correct."
+      );
+    }
+
+    console.log(loggedInUser);
+    // TODO: What do I do with the token?
   } catch (err) {
     console.error(err);
     throw err;
