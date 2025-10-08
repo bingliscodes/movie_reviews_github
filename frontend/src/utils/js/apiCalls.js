@@ -175,6 +175,8 @@ export const addToList = async (listName, mediaId) => {
     );
 
     if (res.status !== 200) throw new Error("Failed to add to list");
+
+    return res.data.data;
   } catch (err) {
     console.error(err);
     throw err;
@@ -195,6 +197,8 @@ export const removeFromList = async (listName, mediaId) => {
     );
 
     if (res.status !== 200) throw new Error("Failed to remove from list");
+
+    return res.data.data;
   } catch (err) {
     console.error(err);
     throw err;

@@ -31,6 +31,9 @@ export default function SignupCard() {
         </Field.Root>
 
         <Button type="submit">Log In</Button>
+        <Stack pt={6}>
+          Don't have an account yet? <NavLink to="/signup">Signup</NavLink>
+        </Stack>
       </Stack>
     </form>
   );

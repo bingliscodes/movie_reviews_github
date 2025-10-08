@@ -29,8 +29,6 @@ export const UserContextProvider = ({ children }) => {
     fetchUserDataAsync();
   }, []);
 
-  // Will likely remove this, but reminder of all variables I have access to
-
   return (
     <UserContext value={{ userData, setUserData, isLoggedIn, setIsLoggedIn }}>
       {children}

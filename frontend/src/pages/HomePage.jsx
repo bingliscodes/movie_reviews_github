@@ -13,7 +13,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(isLoggedIn);
   useEffect(() => {
     fetchData()
       .then((data) => {

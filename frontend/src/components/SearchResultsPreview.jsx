@@ -10,7 +10,6 @@ export default function SearchResultsPreview({ searchResults }) {
   //   (res) => res.media_type === "movie"
   // );
   const filteredResults = movies;
-  console.log(filteredResults);
 
   return (
     filteredResults &&

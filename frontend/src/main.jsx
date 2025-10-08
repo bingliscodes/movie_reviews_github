@@ -9,13 +9,11 @@ import "./index.css";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <UserContextProvider>
-      <BrowserRouter>
-        <Provider>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </UserContextProvider>
-  </StrictMode>
+  <UserContextProvider>
+    <BrowserRouter>
+      <Provider>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </UserContextProvider>
 );

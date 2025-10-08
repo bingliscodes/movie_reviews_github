@@ -64,7 +64,14 @@ export const logout = async () => {
     const res = await axios.get("http://localhost:3000/api/v1/users/logout", {
       withCredentials: true,
     });
-    if (res.data.status === "sucess") location.reload(true);
+    if (res.data.status === "success") {
+      alert(
+        "Logout successfully! You will now be redirected to the home page."
+      );
+      window.setTimeout(() => {
+        location.assign("/");
+      }, 1500);
+    }
   } catch (err) {
     console.error(err);
     throw err;
@@ -81,7 +88,6 @@ export const verifyJWT = async () => {
       throw new Error("Failed to get logged in user. Please log in.");
     return res.data;
   } catch (err) {
-    console.log("error caught!");
     console.error(err);
     throw err;
   }

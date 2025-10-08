@@ -23,28 +23,21 @@ import { UserContext } from "../store/userContext";
 import MovieTrailer from "../components/MovieTrailer";
 import CastCarousel from "../components/CastCarousel";
 
-export default function MovieDetails({ type }) {
+export default function DetailsPage({ type }) {
   const { mediaId } = useParams();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [wishList, setWishList] = useState([]);
-  const [watchList, setWatchList] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
-
+  const [isInList, setIsInList] = useState({
+    watched: false,
+    wish: false,
+    favorites: false,
+  });
   const { userData } = useContext(UserContext);
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.700", "gray.400");
   const badgeBg = useColorModeValue("gray.50", "gray.800");
-
-  useEffect(() => {
-    if (userData?.data) {
-      setWishList(userData.data.movieWishList || []);
-      setWatchList(userData.data.movieWatchList || []);
-      setFavoriteList(userData.data.movieFavoriteList || []);
-    }
-  }, [userData]);
 
   useEffect(() => {
     async function fetchMediaDetailsAsync() {
@@ -67,6 +60,15 @@ export default function MovieDetails({ type }) {
 
   if (!data || !data.mediaDetails)
     return <Center> No {type} data available. </Center>;
+
+  const {
+    movieFavoriteList,
+    movieWatchList,
+    movieWishList,
+    tvFavoriteList,
+    tvWatchList,
+    tvWishList,
+  } = userData.data;
 
   const { mediaDetails, mediaTrailers, mediaCredits } = data;
 
@@ -162,15 +164,13 @@ export default function MovieDetails({ type }) {
                   variant="solid"
                   rounded="full"
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                  onClick={async () => {
-                    console.log();
-                    const updatedList = wishList.includes(mediaDetails.id)
-                      ? await removeFromList("movieWishList", mediaDetails.id)
-                      : await addToList("movieWishList", mediaDetails.id);
-                    setWishList(updatedList.data.movieWishList);
+                  onClick={() => {
+                    movieWishList.includes(mediaDetails.id)
+                      ? removeFromList("movieWishList", mediaDetails.id)
+                      : addToList("movieWishList", mediaDetails.id);
                   }}
                 >
-                  {wishList.includes(mediaDetails.id)
+                  {movieWishList.includes(mediaDetails.id)
                     ? "Remove from wishlist"
                     : "Add to wishlist"}
                 </Button>
@@ -181,14 +181,13 @@ export default function MovieDetails({ type }) {
                   _hover={{ bg: "blue.500" }}
                   _focus={{ bg: "blue.500" }}
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                  onClick={async () => {
-                    const updatedList = watchList.includes(mediaDetails.id)
-                      ? await removeFromList("movieWatchList", mediaDetails.id)
-                      : await addToList("movieWatchList", mediaDetails.id);
-                    setWatchList(updatedList.data.movieWatchList);
+                  onClick={() => {
+                    movieWatchList.includes(mediaDetails.id)
+                      ? removeFromList("movieWatchList", mediaDetails.id)
+                      : addToList("movieWatchList", mediaDetails.id);
                   }}
                 >
-                  {watchList.includes(mediaDetails.id)
+                  {movieWatchList.includes(mediaDetails.id)
                     ? "Remove from watched"
                     : "Add to watched"}
                 </Button>
@@ -196,17 +195,13 @@ export default function MovieDetails({ type }) {
                   variant="solid"
                   rounded="full"
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                  onClick={async () => {
-                    const updatedList = favoriteList.includes(mediaDetails.id)
-                      ? await removeFromList(
-                          "movieFavoriteList",
-                          mediaDetails.id
-                        )
-                      : await addToList("movieFavoriteList", mediaDetails.id);
-                    setFavoriteList(updatedList.data.movieFavoriteList);
+                  onClick={() => {
+                    movieFavoriteList.includes(mediaDetails.id)
+                      ? removeFromList("movieFavoriteList", mediaDetails.id)
+                      : addToList("movieFavoriteList", mediaDetails.id);
                   }}
                 >
-                  {favoriteList.includes(mediaDetails.id)
+                  {movieFavoriteList.includes(mediaDetails.id)
                     ? "Remove from favorites"
                     : "Add to favorites"}
                 </Button>
