@@ -7,12 +7,12 @@ export default function MovieTrailer() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  let { movieId } = useParams();
+  let { mediaId } = useParams();
 
   useEffect(() => {
     setLoading(true);
 
-    fetchMediaDetails("movie", movieId)
+    fetchMediaDetails("movie", mediaId)
       .then((data) => {
         const { mediaTrailers: movieTrailers } = data;
         setFilteredVideos(
@@ -26,7 +26,7 @@ export default function MovieTrailer() {
         setError(err);
         setLoading(false);
       });
-  }, [movieId]);
+  }, [mediaId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading data!</p>;
