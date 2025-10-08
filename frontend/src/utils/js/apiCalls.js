@@ -65,7 +65,11 @@ export const fetchData = async () => {
   }
 };
 
-export const fetchMediaDetails = async (mediaType, mediaId) => {
+export const fetchMediaDetails = async (
+  mediaType,
+  mediaId,
+  summary = false
+) => {
   try {
     // Top level details
     const mediaRes = await axios({
@@ -76,6 +80,8 @@ export const fetchMediaDetails = async (mediaType, mediaId) => {
 
     if (mediaRes.status !== 200)
       throw new Error("Failed to fetch media details");
+
+    if (summary) return mediaRes.data;
 
     // Trailers
     const trailerRes = await axios({
@@ -107,8 +113,6 @@ export const fetchMediaDetails = async (mediaType, mediaId) => {
   }
 };
 
-// Search movies will be {baseUrl/search/movie} and shows {baseUrl/search/tv}
-// Search all 3 is {baseUrl/search/multi}
 export const fetchSearchResults = async (searchStr) => {
   try {
     const searchRes = await axios({
@@ -121,61 +125,6 @@ export const fetchSearchResults = async (searchStr) => {
       throw new Error("Failed to fetch search results");
 
     return searchRes.data.results;
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-};
-
-export const signup = async (formData) => {
-  const { name, email, password, passwordConfirm } = formData;
-  try {
-    const newUserRes = await axios.post(
-      "http://localhost:3000/api/v1/users/signup",
-      {
-        name,
-        email,
-        password,
-        passwordConfirm,
-      },
-      { withCredentials: true }
-    );
-
-    console.log(newUserRes);
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-};
-
-export const login = async (formData) => {
-  const { email, password } = formData;
-  try {
-    const loggedInUser = await axios.post(
-      "http://localhost:3000/api/v1/users/login",
-      { email, password },
-      {
-        withCredentials: true,
-      }
-    );
-
-    if (!loggedInUser.status === 200) {
-      throw new Error(
-        "Failed to login user. Make sure email and password are correct."
-      );
-    }
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-};
-
-export const logout = async () => {
-  try {
-    const res = await axios.get("http://localhost:3000/api/v1/users/logout", {
-      withCredentials: true,
-    });
-    if (res.data.status === "sucess") location.reload(true);
   } catch (err) {
     console.error(err);
     throw err;

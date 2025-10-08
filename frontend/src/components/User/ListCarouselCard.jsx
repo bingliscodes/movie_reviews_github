@@ -1,7 +1,6 @@
 import { Box, Image, Text, Flex } from "@chakra-ui/react";
 
-export default function SearchResultsPreviewCard({ title, img, year, actors }) {
-  const [actor1, actor2] = actors;
+export default function ListCarouselCard({ title, img }) {
   return (
     <Flex
       // These dimensions affect the individual movie cards
@@ -13,6 +12,7 @@ export default function SearchResultsPreviewCard({ title, img, year, actors }) {
       overflow="hidden"
       boxShadow="md"
       p={2}
+      marginBottom={2}
       gap={4}
       alignItems="flex-start"
     >
@@ -28,12 +28,6 @@ export default function SearchResultsPreviewCard({ title, img, year, actors }) {
       <Box flex="1" overflow="hidden">
         <Text fontWeight="bold" fontSize="md" noOfLines={2}>
           {title}
-        </Text>
-        <Text fontSize="xs" color="gray.400">
-          {year}
-        </Text>
-        <Text fontSize="xs" noOfLines={1}>
-          {actor1}, {actor2}
         </Text>
       </Box>
     </Flex>

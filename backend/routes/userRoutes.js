@@ -27,13 +27,9 @@ router.use(protect);
 router.get('/me', getMe, getUser);
 // These are post requests because they send the user id in the req body
 router.route('/me/watched').get(getWatched).post(addToList);
-router.route('/me/wish').get(getWish);
-router.route('/me/favorites').get(getFavorites);
+router.route('/me/wish').get(getWish).post(addToList);
+router.route('/me/favorites').get(getFavorites).post(addToList);
 
 router.route('/').get(getAllUsers);
-
-//TODO: Implement wishlist and favorites.
-router.route('/me/wish').post(addToList);
-router.route('/me/favorites').post(addToList);
 
 export default router;

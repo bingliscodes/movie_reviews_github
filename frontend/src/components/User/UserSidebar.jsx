@@ -15,6 +15,7 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import { FiHome, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
 
 import { fetchUserData } from "../../utils/js/apiCalls";
+import ListCarousel from "./ListCarousel";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
@@ -67,21 +68,50 @@ export default function UserSidebar() {
       case "Watched":
         return (
           <>
-            <Text>These are your watched Movies:</Text>
-            {movieWatchList.map((movieId) => (
-              <p key={movieId}>{movieId}</p>
-            ))}
-            <Text>These are your watched TV Shows:</Text>
-            {tvWatchList.map((tvId) => (
-              <p key={tvId}>{tvId}</p>
-            ))}
+            <ListCarousel
+              title="Movies on your Watched List"
+              type="movie"
+              mediaList={movieWatchList}
+            />
+            <ListCarousel
+              title="TV on your Watched List"
+              type="tv"
+              mediaList={tvWatchList}
+            />
           </>
         );
 
       case "Wish List":
-        return <Text>Here’s your Wish List.</Text>;
+        return (
+          <>
+            <ListCarousel
+              title="Movies on your Wish List"
+              type="movie"
+              mediaList={movieWishList}
+            />
+            <ListCarousel
+              title="TV on your Wish List"
+              type="tv"
+              mediaList={tvWishList}
+            />
+          </>
+        );
+
       case "Favorites":
-        return <Text>All your Favorites are here.</Text>;
+        return (
+          <>
+            <ListCarousel
+              title="Movies on your Favorites List"
+              type="movie"
+              mediaList={movieFavoriteList}
+            />
+            <ListCarousel
+              title="TV on your Favorites List"
+              type="tv"
+              mediaList={tvFavoriteList}
+            />
+          </>
+        );
       case "Settings":
         return (
           <>

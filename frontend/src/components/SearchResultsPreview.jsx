@@ -18,7 +18,7 @@ export default function SearchResultsPreview({ searchResults }) {
       <SearchResultsPreviewCard
         key={res.id}
         title={res.title}
-        img={`https://image.tmdb.org/t/p/w500/${res.poster_path}`}
+        img={res.poster_path}
         year={res.release_date.substring(0, 4)}
         //TODO: Figure out how to get the actors
         actors={["Bookie", "Cannoli"]}

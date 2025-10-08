@@ -145,7 +145,12 @@ export default function MovieDetails() {
 
               {/* Buttons */}
               <Stack direction="row" mt={4}>
-                <Button variant="outline" rounded="full">
+                <Button
+                  variant="solid"
+                  rounded="full"
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() => addToList("movieWishList", movieDetails.id)}
+                >
                   Add to wishlist
                 </Button>
                 <Button
@@ -156,6 +161,16 @@ export default function MovieDetails() {
                   _focus={{ bg: "blue.500" }}
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                   onClick={() => addToList("movieWatchList", movieDetails.id)}
+                >
+                  Add to watched
+                </Button>
+                <Button
+                  variant="solid"
+                  rounded="full"
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() =>
+                    addToList("movieFavoriteList", movieDetails.id)
+                  }
                 >
                   Add to favorites
                 </Button>

@@ -12,9 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
+import { fetchMediaDetails, addToList } from "../utils/js/apiCalls";
 import CastCarousel from "../components/CastCarousel";
 
 export default function TvDetails() {
@@ -144,7 +144,12 @@ export default function TvDetails() {
 
               {/* Buttons */}
               <Stack direction="row" mt={4}>
-                <Button variant="outline" rounded="full">
+                <Button
+                  variant="solid"
+                  rounded="full"
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() => addToList("tvWishList", tvDetails.id)}
+                >
                   Add to wishlist
                 </Button>
                 <Button
@@ -154,6 +159,15 @@ export default function TvDetails() {
                   _hover={{ bg: "blue.500" }}
                   _focus={{ bg: "blue.500" }}
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() => addToList("tvWatchList", tvDetails.id)}
+                >
+                  Add to watched
+                </Button>
+                <Button
+                  variant="solid"
+                  rounded="full"
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() => addToList("tvFavoriteList", tvDetails.id)}
                 >
                   Add to favorites
                 </Button>

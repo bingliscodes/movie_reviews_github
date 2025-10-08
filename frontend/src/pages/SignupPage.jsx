@@ -3,7 +3,7 @@
 import { Field, Input, Stack, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
-import { signup } from "../utils/js/apiCalls";
+import { signup } from "../utils/js/authentication";
 
 export default function SignupCard() {
   function handleSubmit(e) {
