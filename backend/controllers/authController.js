@@ -96,6 +96,15 @@ export const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+export const sendUser = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+    data: req.user,
+  });
+
+  next();
+});
+
 export const resetPassword = catchAsync(async (req, res, next) => {
   // 1) get user based on token
   const hashedToken = crypto

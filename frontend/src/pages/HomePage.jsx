@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { fetchData } from "../utils/js/apiCalls";
 
+import { UserContext } from "../store/userContext";
 import SearchBar from "../components/SearchBar";
 import ChakraCarousel from "../chakra-ui/ChakraCarousel";
 
 export default function HomePage() {
+  const { userData, isLoggedIn } = useContext(UserContext);
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  console.log(isLoggedIn);
   useEffect(() => {
     fetchData()
       .then((data) => {

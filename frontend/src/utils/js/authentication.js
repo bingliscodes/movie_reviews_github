@@ -70,3 +70,19 @@ export const logout = async () => {
     throw err;
   }
 };
+
+export const verifyJWT = async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/api/v1/auth/me", {
+      withCredentials: true,
+    });
+
+    if (!res.status === 200)
+      throw new Error("Failed to get logged in user. Please log in.");
+    return res.data;
+  } catch (err) {
+    console.log("error caught!");
+    console.error(err);
+    throw err;
+  }
+};

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import {
   IconButton,
   Box,
@@ -14,8 +14,8 @@ import {
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { FiHome, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
 
-import { fetchUserData } from "../../utils/js/apiCalls";
 import ListCarousel from "./ListCarousel";
+import { UserContext } from "../../store/userContext";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
@@ -25,30 +25,14 @@ const LinkItems = [
   { name: "Settings", icon: FiSettings },
 ];
 export default function UserSidebar() {
+  const { userData, isLoggedIn } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [selectedPage, setSelectedPage] = useState("Home");
 
-  useEffect(() => {
-    async function fetchUserDataAsync() {
-      setLoading(true);
-      try {
-        const userDataRes = await fetchUserData();
+  const boxBg = useColorModeValue("gray.100", "gray.900");
 
-        setUserData(userDataRes.data);
-      } catch (err) {
-        setError(err);
-        console.error(err);
-      }
+  if (!userData.data) return <h1>Loading...</h1>;
 
-      setLoading(false);
-    }
-    fetchUserDataAsync();
-  }, []);
-
-  // Will likely remove this, but reminder of all variables I have access to
   const {
     email,
     firstName,
@@ -59,7 +43,7 @@ export default function UserSidebar() {
     tvFavoriteList,
     tvWatchList,
     tvWishList,
-  } = userData;
+  } = userData.data;
 
   const renderContent = () => {
     switch (selectedPage) {
@@ -126,7 +110,7 @@ export default function UserSidebar() {
     }
   };
   return (
-    <Box minW="100vw" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minW="100vw" bg={boxBg}>
       <SidebarContent
         onClose={() => onClose}
         onItemSelect={setSelectedPage}
@@ -153,11 +137,13 @@ export default function UserSidebar() {
   );
 }
 const SidebarContent = ({ onClose, onItemSelect, ...rest }) => {
+  const sidebarBg = useColorModeValue("white", "gray.900");
+  const boxBorderColor = useColorModeValue("gray.200", "gray.700");
   return (
     <Box
-      bg={useColorModeValue("white", "gray.900")}
+      bg={sidebarBg}
       borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      borderRightColor={boxBorderColor}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
@@ -184,6 +170,7 @@ const SidebarContent = ({ onClose, onItemSelect, ...rest }) => {
     </Box>
   );
 };
+
 const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Box
@@ -216,15 +203,17 @@ const NavItem = ({ icon, children, ...rest }) => {
   );
 };
 const MobileNav = ({ onOpen, ...rest }) => {
+  const sidebarBg = useColorModeValue("white", "gray.900");
+  const boxBorderColor = useColorModeValue("gray.200", "gray.700");
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 24 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
+      bg={sidebarBg}
       borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+      borderBottomColor={boxBorderColor}
       justifyContent="flex-start"
       {...rest}
     >

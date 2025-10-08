@@ -8,12 +8,17 @@ export const getAllUsers = getAll(User);
 
 export const getUser = getOne(User);
 
+export const getMe = catchAsync(async (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+});
+
 export const addToList = catchAsync(async (req, res, next) => {
   const { listName, mediaId } = req.body;
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
-    { $push: { [listName]: mediaId } },
+    { $addToSet: { [listName]: mediaId } },
     { new: true },
   );
 
@@ -24,8 +29,19 @@ export const addToList = catchAsync(async (req, res, next) => {
   next();
 });
 
-export const getMe = catchAsync(async (req, res, next) => {
-  req.params.id = req.user.id;
+export const removeFromList = catchAsync(async (req, res, next) => {
+  const { listName, mediaId } = req.body;
+
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $pull: { [listName]: mediaId } },
+    { new: true },
+  );
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
   next();
 });
 

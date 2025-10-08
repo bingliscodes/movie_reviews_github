@@ -180,3 +180,23 @@ export const addToList = async (listName, mediaId) => {
     throw err;
   }
 };
+
+export const removeFromList = async (listName, mediaId) => {
+  try {
+    const res = await axios.delete(
+      "http://localhost:3000/api/v1/users/me/watched",
+      {
+        data: {
+          listName,
+          mediaId,
+        },
+        withCredentials: true,
+      }
+    );
+
+    if (res.status !== 200) throw new Error("Failed to remove from list");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};

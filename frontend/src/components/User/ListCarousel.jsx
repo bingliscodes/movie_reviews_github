@@ -29,8 +29,6 @@ export default function ListCarousel({ title, type, mediaList }) {
     fetchMediaDetailsAsync();
   }, [type, mediaList]);
 
-  console.log(mediaData);
-
   if (loading) return <Center>Loading...</Center>;
   if (error) return <Center>Error loading data!</Center>;
 

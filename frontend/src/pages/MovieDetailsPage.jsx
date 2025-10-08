@@ -12,7 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMediaDetails, addToList } from "../utils/js/apiCalls";
+import {
+  fetchMediaDetails,
+  addToList,
+  removeFromList,
+} from "../utils/js/apiCalls";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
 import MovieTrailer from "../components/MovieTrailer";
@@ -173,6 +177,41 @@ export default function MovieDetails() {
                   }
                 >
                   Add to favorites
+                </Button>
+              </Stack>
+              <Stack direction="row" mt={4}>
+                <Button
+                  variant="solid"
+                  rounded="full"
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() =>
+                    removeFromList("movieWishList", movieDetails.id)
+                  }
+                >
+                  Remove from wishlist
+                </Button>
+                <Button
+                  rounded="full"
+                  bg="blue.400"
+                  color="white"
+                  _hover={{ bg: "blue.500" }}
+                  _focus={{ bg: "blue.500" }}
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() =>
+                    removeFromList("movieWatchList", movieDetails.id)
+                  }
+                >
+                  Remove from watched
+                </Button>
+                <Button
+                  variant="solid"
+                  rounded="full"
+                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                  onClick={() =>
+                    removeFromList("movieFavoriteList", movieDetails.id)
+                  }
+                >
+                  Remove from favorites
                 </Button>
               </Stack>
               {directors &&
