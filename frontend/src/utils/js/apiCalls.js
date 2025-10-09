@@ -9,7 +9,7 @@ export const fetchData = async () => {
   try {
     const popularMovieRes = await axios({
       method: "GET",
-      url: "https://api.themoviedb.org/3/movie/popular",
+      url: `${import.meta.env.VITE_TMDB_API_BASE_URL}movie/popular`,
       headers,
     });
 
@@ -18,7 +18,7 @@ export const fetchData = async () => {
 
     const trendingMovieRes = await axios({
       method: "GET",
-      url: "https://api.themoviedb.org/3/trending/movie/day",
+      url: `${import.meta.env.VITE_TMDB_API_BASE_URL}trending/movie/day`,
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_TOKEN}`,
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const fetchData = async () => {
 
     const popularShowRes = await axios({
       method: "GET",
-      url: "https://api.themoviedb.org/3/tv/popular",
+      url: `${import.meta.env.VITE_TMDB_API_BASE_URL}tv/popular`,
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_TOKEN}`,
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const fetchData = async () => {
 
     const trendingShowRes = await axios({
       method: "GET",
-      url: "https://api.themoviedb.org/3/trending/tv/day",
+      url: `${import.meta.env.VITE_TMDB_API_BASE_URL}trending/tv/day`,
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_TOKEN}`,
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export const fetchMediaDetails = async (
     // Top level details
     const mediaRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/${mediaType}/${mediaId}`,
+      url: `${import.meta.env.VITE_TMDB_API_BASE_URL}${mediaType}/${mediaId}`,
       headers,
     });
 
@@ -86,7 +86,9 @@ export const fetchMediaDetails = async (
     // Trailers
     const trailerRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos`,
+      url: `${
+        import.meta.env.VITE_TMDB_API_BASE_URL
+      }${mediaType}/${mediaId}/videos`,
       headers,
     });
 
@@ -96,7 +98,9 @@ export const fetchMediaDetails = async (
     // Credits
     const creditsRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/${mediaType}/${mediaId}/credits`,
+      url: `${
+        import.meta.env.VITE_TMDB_API_BASE_URL
+      }${mediaType}/${mediaId}/credits`,
       headers,
     });
 
@@ -117,7 +121,9 @@ export const fetchSearchResults = async (searchStr) => {
   try {
     const searchRes = await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/search/multi?query=${searchStr}`,
+      url: `${
+        import.meta.env.VITE_TMDB_API_BASE_URL
+      }search/multi?query=${searchStr}`,
       headers,
     });
 
@@ -134,7 +140,7 @@ export const fetchSearchResults = async (searchStr) => {
 export const getWatched = async () => {
   try {
     const res = await axios.get(
-      "http://localhost:3000/api/v1/users/me/watched",
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me/watched`,
       {
         withCredentials: true,
       }
@@ -149,9 +155,12 @@ export const getWatched = async () => {
 
 export const fetchUserData = async () => {
   try {
-    const userData = await axios.get("http://localhost:3000/api/v1/users/me", {
-      withCredentials: true,
-    });
+    const userData = await axios.get(
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me`,
+      {
+        withCredentials: true,
+      }
+    );
 
     if (userData.status !== 200)
       throw new Error("Failed to fetch user details");
@@ -166,7 +175,7 @@ export const fetchUserData = async () => {
 export const addToList = async (listName, mediaId) => {
   try {
     const res = await axios.post(
-      "http://localhost:3000/api/v1/users/me/watched",
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me/watched`,
       {
         listName,
         mediaId,
@@ -186,7 +195,7 @@ export const addToList = async (listName, mediaId) => {
 export const removeFromList = async (listName, mediaId) => {
   try {
     const res = await axios.delete(
-      "http://localhost:3000/api/v1/users/me/watched",
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me/watched`,
       {
         data: {
           listName,
