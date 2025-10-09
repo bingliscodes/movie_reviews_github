@@ -30,7 +30,9 @@ export const signup = async (formData) => {
 
 export const login = async (formData) => {
   const { email, password } = formData;
+
   try {
+    console.log("attemping to log user in");
     const loggedInUser = await axios.post(
       "http://localhost:3000/api/v1/users/login",
       { email, password },
@@ -54,8 +56,7 @@ export const login = async (formData) => {
       }, 1500);
     }
   } catch (err) {
-    console.error(err);
-    throw err;
+    throw new Error(err);
   }
 };
 
