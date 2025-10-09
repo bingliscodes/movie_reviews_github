@@ -190,21 +190,26 @@ export default function TvDetails() {
                     ? "Remove from watched"
                     : "Add to watched"}
                 </Button>
-                <Button
-                  variant="solid"
-                  rounded="full"
-                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                  onClick={async () => {
-                    const updatedList = favoriteList.includes(mediaDetails.id)
-                      ? await removeFromList("tvFavoriteList", mediaDetails.id)
-                      : await addToList("tvFavoriteList", mediaDetails.id);
-                    setFavoriteList(updatedList.data.tvFavoriteList);
-                  }}
-                >
-                  {favoriteList.includes(mediaDetails.id)
-                    ? "Remove from favorites"
-                    : "Add to favorites"}
-                </Button>
+                {watchList.includes(mediaDetails.id) && (
+                  <Button
+                    variant="solid"
+                    rounded="full"
+                    boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                    onClick={async () => {
+                      const updatedList = favoriteList.includes(mediaDetails.id)
+                        ? await removeFromList(
+                            "tvFavoriteList",
+                            mediaDetails.id
+                          )
+                        : await addToList("tvFavoriteList", mediaDetails.id);
+                      setFavoriteList(updatedList.data.tvFavoriteList);
+                    }}
+                  >
+                    {favoriteList.includes(mediaDetails.id)
+                      ? "Remove from favorites"
+                      : "Add to favorites"}
+                  </Button>
+                )}
               </Stack>
 
               {mediaDetails.created_by &&
