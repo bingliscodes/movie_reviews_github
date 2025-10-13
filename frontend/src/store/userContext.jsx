@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 
 import { fetchUserData } from "../utils/js/apiCalls";
 import { verifyJWT } from "../utils/js/authentication";
@@ -9,28 +9,37 @@ export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    async function fetchUserDataAsync() {
-      try {
-        const currentUser = await verifyJWT();
-        if (currentUser.status !== "success") {
-          setUserData({});
-          setIsLoggedIn(false);
-          return;
-        }
-
-        const userDataRes = await fetchUserData();
-        setUserData(userDataRes);
-        setIsLoggedIn(true);
-      } catch (err) {
-        console.error(err);
+  const loadUserData = useCallback(async () => {
+    try {
+      const currentUser = await verifyJWT();
+      if (currentUser.status !== "success") {
+        setUserData({});
+        setIsLoggedIn(false);
+        return;
       }
+
+      const userDataRes = await fetchUserData();
+      setUserData(userDataRes);
+      setIsLoggedIn(true);
+    } catch (err) {
+      console.error(err);
     }
-    fetchUserDataAsync();
   }, []);
 
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
+
   return (
-    <UserContext value={{ userData, setUserData, isLoggedIn, setIsLoggedIn }}>
+    <UserContext
+      value={{
+        userData,
+        setUserData,
+        isLoggedIn,
+        setIsLoggedIn,
+        refreshUserData: loadUserData,
+      }}
+    >
       {children}
     </UserContext>
   );

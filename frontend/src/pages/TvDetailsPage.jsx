@@ -26,23 +26,15 @@ export default function TvDetails() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [wishList, setWishList] = useState([]);
-  const [watchList, setWatchList] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
 
-  const { userData } = useContext(UserContext);
+  const { userData, refreshUserData } = useContext(UserContext);
+  const wishList = userData?.data?.movieWishList || [];
+  const watchList = userData?.data?.movieWatchList || [];
+  const favoriteList = userData?.data?.movieFavoriteList || [];
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.700", "gray.400");
   const badgeBg = useColorModeValue("gray.50", "gray.800");
-
-  useEffect(() => {
-    if (userData?.data) {
-      setWishList(userData.data.movieWishList || []);
-      setWatchList(userData.data.movieWatchList || []);
-      setFavoriteList(userData.data.movieFavoriteList || []);
-    }
-  }, [userData]);
 
   useEffect(() => {
     async function fetchMediaDetailsAsync() {
@@ -162,10 +154,10 @@ export default function TvDetails() {
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                   onClick={async () => {
                     console.log();
-                    const updatedList = wishList.includes(mediaDetails.id)
+                    wishList.includes(mediaDetails.id)
                       ? await removeFromList("tvWishList", mediaDetails.id)
                       : await addToList("tvWishList", mediaDetails.id);
-                    setWishList(updatedList.data.tvWishList);
+                    await refreshUserData();
                   }}
                 >
                   {wishList.includes(mediaDetails.id)
@@ -180,10 +172,10 @@ export default function TvDetails() {
                   _focus={{ bg: "blue.500" }}
                   boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                   onClick={async () => {
-                    const updatedList = watchList.includes(mediaDetails.id)
+                    watchList.includes(mediaDetails.id)
                       ? await removeFromList("tvWatchList", mediaDetails.id)
                       : await addToList("tvWatchList", mediaDetails.id);
-                    setWatchList(updatedList.data.tvWatchList);
+                    await refreshUserData();
                   }}
                 >
                   {watchList.includes(mediaDetails.id)
@@ -196,13 +188,13 @@ export default function TvDetails() {
                     rounded="full"
                     boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                     onClick={async () => {
-                      const updatedList = favoriteList.includes(mediaDetails.id)
+                      favoriteList.includes(mediaDetails.id)
                         ? await removeFromList(
                             "tvFavoriteList",
                             mediaDetails.id
                           )
                         : await addToList("tvFavoriteList", mediaDetails.id);
-                      setFavoriteList(updatedList.data.tvFavoriteList);
+                      await refreshUserData();
                     }}
                   >
                     {favoriteList.includes(mediaDetails.id)
