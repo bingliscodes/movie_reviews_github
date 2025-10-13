@@ -26,7 +26,7 @@ const settings = {
   slidesToScroll: 1,
 };
 
-export default function ChakraCarousel({ carouselData, title, type }) {
+export default function ChakraCarousel({ carouselData = [], title, type }) {
   // As we have used custom buttons, we need a reference variable to change the state
 
   const [slider, setSlider] = useState(null);
@@ -85,7 +85,11 @@ export default function ChakraCarousel({ carouselData, title, type }) {
           <BiRightArrowAlt />
         </IconButton>
         {/* Slider */}
-        <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        <Slider
+          {...settings}
+          ref={(slider) => setSlider(slider)}
+          key={carouselData.length} // 👈 this forces Slider to remount when data changes
+        >
           {carouselData.map((el, idx) => {
             return (
               <CarouselCard
