@@ -23,6 +23,8 @@ export const UserContextProvider = ({ children }) => {
       setIsLoggedIn(true);
     } catch (err) {
       console.error(err);
+      setUserData({});
+      setIsLoggedIn(false);
     }
   }, []);
 

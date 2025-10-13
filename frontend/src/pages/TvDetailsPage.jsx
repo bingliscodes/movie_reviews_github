@@ -13,13 +13,10 @@ import {
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import {
-  fetchMediaDetails,
-  addToList,
-  removeFromList,
-} from "../utils/js/apiCalls";
+import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { UserContext } from "../store/userContext";
 import CastCarousel from "../components/CastCarousel";
+import { ModifyListButton } from "../components/ModifyListButtons";
 
 export default function TvDetails() {
   const { mediaId } = useParams();
@@ -27,10 +24,8 @@ export default function TvDetails() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { userData, refreshUserData } = useContext(UserContext);
-  const wishList = userData?.data?.movieWishList || [];
+  const { userData } = useContext(UserContext);
   const watchList = userData?.data?.movieWatchList || [];
-  const favoriteList = userData?.data?.movieFavoriteList || [];
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.700", "gray.400");
@@ -148,59 +143,23 @@ export default function TvDetails() {
 
               {/* Buttons */}
               <Stack direction="row" mt={4}>
-                <Button
-                  variant="solid"
-                  rounded="full"
-                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                  onClick={async () => {
-                    console.log();
-                    wishList.includes(mediaDetails.id)
-                      ? await removeFromList("tvWishList", mediaDetails.id)
-                      : await addToList("tvWishList", mediaDetails.id);
-                    await refreshUserData();
-                  }}
-                >
-                  {wishList.includes(mediaDetails.id)
-                    ? "Remove from wishlist"
-                    : "Add to wishlist"}
-                </Button>
-                <Button
-                  rounded="full"
-                  bg="blue.400"
-                  color="white"
-                  _hover={{ bg: "blue.500" }}
-                  _focus={{ bg: "blue.500" }}
-                  boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                  onClick={async () => {
-                    watchList.includes(mediaDetails.id)
-                      ? await removeFromList("tvWatchList", mediaDetails.id)
-                      : await addToList("tvWatchList", mediaDetails.id);
-                    await refreshUserData();
-                  }}
-                >
-                  {watchList.includes(mediaDetails.id)
-                    ? "Remove from watched"
-                    : "Add to watched"}
-                </Button>
+                <ModifyListButton
+                  mediaType="tv"
+                  type="wish"
+                  mediaId={mediaDetails.id}
+                />
+                <ModifyListButton
+                  mediaType="tv"
+                  type="watch"
+                  mediaId={mediaDetails.id}
+                />
+
                 {watchList.includes(mediaDetails.id) && (
-                  <Button
-                    variant="solid"
-                    rounded="full"
-                    boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-                    onClick={async () => {
-                      favoriteList.includes(mediaDetails.id)
-                        ? await removeFromList(
-                            "tvFavoriteList",
-                            mediaDetails.id
-                          )
-                        : await addToList("tvFavoriteList", mediaDetails.id);
-                      await refreshUserData();
-                    }}
-                  >
-                    {favoriteList.includes(mediaDetails.id)
-                      ? "Remove from favorites"
-                      : "Add to favorites"}
-                  </Button>
+                  <ModifyListButton
+                    mediaType="tv"
+                    type="favorite"
+                    mediaId={mediaDetails.id}
+                  />
                 )}
               </Stack>
 

@@ -1,7 +1,13 @@
 import { Box, Image, Text, Flex } from "@chakra-ui/react";
+import { ModifyListButton } from "./ModifyListButtons";
 
-export default function SearchResultsPreviewCard({ title, img, year, actors }) {
-  const [actor1, actor2] = actors;
+export default function SearchResultsPreviewCard({
+  title,
+  img,
+  year,
+  mediaType,
+  mediaId,
+}) {
   return (
     <Flex
       // These dimensions affect the individual movie cards
@@ -32,9 +38,7 @@ export default function SearchResultsPreviewCard({ title, img, year, actors }) {
         <Text fontSize="xs" color="gray.400">
           {year}
         </Text>
-        <Text fontSize="xs" noOfLines={1}>
-          {actor1}, {actor2}
-        </Text>
+        <ModifyListButton mediaType={mediaType} type="wish" mediaId={mediaId} />
       </Box>
     </Flex>
   );

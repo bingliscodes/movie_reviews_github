@@ -58,17 +58,23 @@ export default function SearchBar() {
                     <Menu.Item
                       key={res.id}
                       value={res.id}
-                      onClick={() => {
+                      onClick={(e) => {
+                        if (e.target.closest("button")) {
+                          e.preventDefault();
+                          return;
+                        }
                         navigate(`/movie/${res.id}`);
                         setMenuIsOpen(false);
                       }}
+                      onSelect={(e) => e.preventDefault()}
                     >
                       <SearchResultsPreviewCard
                         key={res.id}
+                        mediaId={res.id}
                         title={res.title}
                         img={`https://image.tmdb.org/t/p/w500/${res.poster_path}`}
+                        mediaType={res.media_type}
                         year={res.release_date?.substring(0, 4)}
-                        actors={["Bookie", "Cannoli"]}
                       />
                     </Menu.Item>
                   ))}
