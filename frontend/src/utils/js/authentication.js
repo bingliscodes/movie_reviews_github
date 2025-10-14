@@ -1,12 +1,13 @@
 import axios from "axios";
 
 export const signup = async (formData) => {
-  const { name, email, password, passwordConfirm } = formData;
+  const { firstName, lastName, email, password, passwordConfirm } = formData;
   try {
     const newUserRes = await axios.post(
       "http://localhost:3000/api/v1/users/signup",
       {
-        name,
+        firstName,
+        lastName,
         email,
         password,
         passwordConfirm,

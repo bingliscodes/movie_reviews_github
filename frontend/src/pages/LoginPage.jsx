@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 import { login } from "../utils/js/authentication";
 
-export default function SignupCard() {
+export default function LoginCard() {
   const [logInError, setLoginError] = useState(false);
 
   async function handleSubmit(e) {
