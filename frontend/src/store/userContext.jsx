@@ -5,10 +5,8 @@ import { verifyJWT } from "../utils/js/authentication";
 
 export const UserContext = createContext();
 
-// TODO: Create function load/refresh user list to only refresh the user list
-
 export const UserContextProvider = ({ children }) => {
-  const [userData, setUserData] = useState({}); // Should have (id, name, email, etc.)
+  const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loadUserData = useCallback(async () => {
@@ -21,7 +19,7 @@ export const UserContextProvider = ({ children }) => {
       }
 
       const userDataRes = await fetchUserData();
-      const { id, email, firstName, lastName } = userDataRes;
+      const { id, email, firstName, lastName } = userDataRes.data;
 
       setUserData({ id, email, firstName, lastName });
       setIsLoggedIn(true);

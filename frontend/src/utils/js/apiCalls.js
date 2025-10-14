@@ -175,7 +175,7 @@ export const fetchUserData = async () => {
 export const fetchAllLists = async () => {
   try {
     const data = await axios.get(
-      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me/all-lists`,
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me/allLists`,
       {
         withCredentials: true,
       }

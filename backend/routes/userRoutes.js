@@ -15,6 +15,7 @@ import {
   getMe,
   removeFromList,
   getAllLists,
+  updateMe,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -27,6 +28,8 @@ router.get('/logout', logout);
 router.use(protect);
 
 router.get('/me', getMe, getUser);
+router.patch('/updateMe', updateMe);
+
 // These are post requests because they send the user id in the req body
 router
   .route('/me/watched')
@@ -41,7 +44,7 @@ router
   .post(addToList)
   .delete(removeFromList);
 
-router.get('/me/all-lists', getAllLists);
+router.get('/me/allLists', getAllLists);
 
 router.route('/').get(getAllUsers);
 

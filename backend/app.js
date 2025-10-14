@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import AppError from './utils/appError.js';
@@ -17,7 +18,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 

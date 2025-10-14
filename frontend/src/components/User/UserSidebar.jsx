@@ -16,7 +16,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { HiEye } from "react-icons/hi2";
 
 import ListCarousel from "./ListCarousel";
+import { ListContext } from "../../store/ListContext";
 import { UserContext } from "../../store/UserContext";
+import UserSettings from "./UserSettings";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
@@ -26,23 +28,23 @@ const LinkItems = [
   { name: "Settings", icon: FiSettings },
 ];
 export default function UserSidebar() {
-  const { userData, isLoggedIn } = useContext(UserContext);
+  const userLists = useContext(ListContext);
+  const { userData } = useContext(UserContext);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPage, setSelectedPage] = useState("Home");
 
-  if (!userData.data) return <h1>Loading...</h1>;
+  if (!userLists || !userData) return <h1>Loading...</h1>;
 
   const {
-    email,
-    firstName,
-    lastName,
+    movieWishlist,
+    tvWishlist,
+    movieWatchlist,
+    tvWatchlist,
     movieFavoriteList,
-    movieWatchList,
-    movieWishList,
     tvFavoriteList,
-    tvWatchList,
-    tvWishList,
-  } = userData.data;
+  } = userLists;
+  const { firstName } = userData;
 
   const renderContent = () => {
     switch (selectedPage) {
@@ -54,12 +56,12 @@ export default function UserSidebar() {
             <ListCarousel
               title="Movies on your Watched List"
               type="movie"
-              mediaList={movieWatchList}
+              mediaList={movieWatchlist}
             />
             <ListCarousel
               title="TV on your Watched List"
               type="tv"
-              mediaList={tvWatchList}
+              mediaList={tvWatchlist}
             />
           </>
         );
@@ -70,12 +72,12 @@ export default function UserSidebar() {
             <ListCarousel
               title="Movies on your Wish List"
               type="movie"
-              mediaList={movieWishList}
+              mediaList={movieWishlist}
             />
             <ListCarousel
               title="TV on your Wish List"
               type="tv"
-              mediaList={tvWishList}
+              mediaList={tvWishlist}
             />
           </>
         );
@@ -111,9 +113,7 @@ export default function UserSidebar() {
             >
               Personal Information:
             </Text>
-            <Text textAlign="left">First Name: {firstName}</Text>
-            <Text textAlign="left">Last Name: {lastName}</Text>
-            <Text textAlign="left">Email address: {email}</Text>
+            <UserSettings />
           </>
         );
       default:
