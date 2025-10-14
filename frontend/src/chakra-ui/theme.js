@@ -17,6 +17,12 @@ export const system = createSystem(defaultConfig, {
           navHover: {
             value: { base: "colors.white", _dark: "colors.gray.700" },
           },
+          stack: {
+            value: { base: "colors.white", _dark: "colors.gray.900" },
+          },
+          badge: {
+            value: { base: "colors.gray.50", _dark: "colors.gray.800" },
+          },
         },
         text: {
           DEFAULT: {
@@ -24,6 +30,12 @@ export const system = createSystem(defaultConfig, {
           },
           primaryBtn: {
             value: { base: "colors.gray.600", _dark: "colors.blue.300" },
+          },
+        },
+
+        border: {
+          DEFAULT: {
+            value: { base: "colors.gray.200", _dark: "colors.gray.700" },
           },
         },
       },

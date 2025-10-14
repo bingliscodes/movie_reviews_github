@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { useColorModeValue } from "@/components/ui/color-mode";
 import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { UserContext } from "../store/userContext";
 import CastCarousel from "../components/CastCarousel";
@@ -26,10 +25,6 @@ export default function TvDetails() {
 
   const { userData } = useContext(UserContext);
   const watchList = userData?.data?.tvWatchList || [];
-
-  const bgColor = useColorModeValue("white", "gray.900");
-  const textColor = useColorModeValue("gray.700", "gray.400");
-  const badgeBg = useColorModeValue("gray.50", "gray.800");
 
   useEffect(() => {
     async function fetchMediaDetailsAsync() {
@@ -75,7 +70,7 @@ export default function TvDetails() {
             maxW="7xl"
             height={{ sm: "auto", md: "40rem" }}
             direction={{ base: "column", md: "row" }}
-            bg={bgColor}
+            bg="bg.stack"
             boxShadow="2xl"
             padding={6}
             overflow="hidden"
@@ -117,7 +112,7 @@ export default function TvDetails() {
                 {mediaDetails.name} ({mediaDetails.first_air_date.slice(0, 4)})
               </Heading>
 
-              <Text color={textColor}>{mediaDetails.overview}</Text>
+              <Text color={"text"}>{mediaDetails.overview}</Text>
 
               {/* Genres */}
               <Stack
@@ -126,13 +121,13 @@ export default function TvDetails() {
                 wrap="wrap"
                 justify="center"
               >
-                <Text color={textColor}>Genres:</Text>
+                <Text color={"text"}>Genres:</Text>
                 {mediaDetails.genres?.map((genre) => (
                   <Badge
                     key={genre.id}
                     px={2}
                     py={1}
-                    bg={badgeBg}
+                    bg="bg.badge"
                     rounded="full"
                     fontWeight="400"
                   >

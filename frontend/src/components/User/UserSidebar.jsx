@@ -11,7 +11,6 @@ import {
   Drawer,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useColorModeValue } from "@/components/ui/color-mode";
 import { FiHome, FiStar, FiSettings, FiMenu } from "react-icons/fi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { HiEye } from "react-icons/hi2";
@@ -30,8 +29,6 @@ export default function UserSidebar() {
   const { userData, isLoggedIn } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPage, setSelectedPage] = useState("Home");
-
-  const boxBg = useColorModeValue("gray.100", "gray.900");
 
   if (!userData.data) return <h1>Loading...</h1>;
 
@@ -124,7 +121,7 @@ export default function UserSidebar() {
     }
   };
   return (
-    <Box minW="90vw" mt={6} bg={"boxBg"} boxShadow="sm">
+    <Box minW="90vw" mt={6} bg="bg.nav" boxShadow="sm">
       <SidebarContent
         onClose={() => onClose}
         onItemSelect={setSelectedPage}
@@ -151,13 +148,11 @@ export default function UserSidebar() {
   );
 }
 const SidebarContent = ({ onClose, onItemSelect, ...rest }) => {
-  const sidebarBg = useColorModeValue("white", "gray.900");
-  const boxBorderColor = useColorModeValue("gray.200", "gray.700");
   return (
     <Box
-      bg={sidebarBg}
+      bg="bg.stack"
       borderRight="1px"
-      borderRightColor={boxBorderColor}
+      borderRightColor="border"
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
@@ -217,17 +212,15 @@ const NavItem = ({ icon, children, ...rest }) => {
   );
 };
 const MobileNav = ({ onOpen, ...rest }) => {
-  const sidebarBg = useColorModeValue("white", "gray.900");
-  const boxBorderColor = useColorModeValue("gray.200", "gray.700");
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 24 }}
       height="20"
       alignItems="center"
-      bg={sidebarBg}
+      bg="bg.stack"
       borderBottomWidth="1px"
-      borderBottomColor={boxBorderColor}
+      borderBottomColor="border"
       justifyContent="flex-start"
       {...rest}
     >
