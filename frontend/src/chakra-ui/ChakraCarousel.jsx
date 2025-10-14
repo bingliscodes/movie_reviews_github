@@ -27,8 +27,6 @@ const settings = {
 };
 
 export default function ChakraCarousel({ carouselData = [], title, type }) {
-  // As we have used custom buttons, we need a reference variable to change the state
-
   const [slider, setSlider] = useState(null);
 
   // These are the breakpoints which changes the position of the buttons as the screen size changes
@@ -37,7 +35,17 @@ export default function ChakraCarousel({ carouselData = [], title, type }) {
 
   return (
     <Container maxW="container.lg" centerContent>
-      <Text textAlign="left" textStyle="lg">
+      <Text
+        w="full"
+        fontSize={{ base: "2xl", md: "3xl" }}
+        fontWeight="bold"
+        textAlign="left"
+        mt={8}
+        mb={4}
+        px={2}
+        borderBottom="2px solid"
+        borderColor="blue.400"
+      >
         {title}
       </Text>
       <Box

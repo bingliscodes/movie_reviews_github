@@ -6,7 +6,6 @@ import { useColorModeValue } from "@/components/ui/color-mode"; // your wrapper
 import MainNavigation from "../components/MainNavigation";
 
 export default function RootLayout() {
-  // Pull mode-aware values from theme tokens
   const background = useColorModeValue("background.light", "background.dark");
   const color = useColorModeValue("text.light", "text.dark");
 

@@ -28,60 +28,62 @@ export default function SearchBar() {
   const getAnchorRect = () => inputRef.current.getBoundingClientRect();
 
   return (
-    <Center flexDirection="column">
-      <Box position="relative" width="50vw" mt={12}>
-        <Input
-          placeholder={"Search a movie or show to get started"}
-          w="calc(50vw)"
-          onChange={debounceOnChange}
-          ref={inputRef}
-        />
-        <Menu.Root
-          open={menuIsOpen}
-          positioning={{ getAnchorRect }}
-          onOpenChange={(change) => {
-            // change.open is the new open state
-            setMenuIsOpen(change.open);
-          }}
-          onInteractOutside={() => {
-            setMenuIsOpen(false);
-          }}
-          onEscapeKeyDown={() => {
-            setMenuIsOpen(false);
-          }}
-        >
-          <Portal>
-            <Menu.Positioner width="50%">
-              <Menu.Content>
-                {searchResults &&
-                  searchResults.map((res) => (
-                    <Menu.Item
-                      key={res.id}
-                      value={res.id}
-                      onClick={(e) => {
-                        if (e.target.closest("button")) {
-                          e.preventDefault();
-                          return;
-                        }
-                        navigate(`/movie/${res.id}`);
-                        setMenuIsOpen(false);
-                      }}
-                      onSelect={(e) => e.preventDefault()}
-                    >
-                      <SearchResultsPreviewCard
+    <Center flexDirection="column" w="full" mt={12}>
+      <Box width={{ base: "90%", md: "50vw" }} textAlign="left">
+        <Box position="relative">
+          <Input
+            placeholder="🎬 Search for a Movie or Show"
+            variant="outline"
+            size="lg"
+            ref={inputRef}
+            onChange={debounceOnChange}
+            _focus={{
+              borderColor: "blue.400",
+              boxShadow: "0 0 0 1px blue.400",
+            }}
+            _hover={{ borderColor: "gray.400" }}
+          />
+
+          <Menu.Root
+            open={menuIsOpen}
+            positioning={{ getAnchorRect }}
+            onOpenChange={(change) => setMenuIsOpen(change.open)}
+            onInteractOutside={() => setMenuIsOpen(false)}
+            onEscapeKeyDown={() => setMenuIsOpen(false)}
+          >
+            <Portal>
+              <Menu.Positioner width="100%">
+                <Menu.Content bg="white" boxShadow="xl" borderRadius="md">
+                  {searchResults &&
+                    searchResults.map((res) => (
+                      <Menu.Item
                         key={res.id}
-                        mediaId={res.id}
-                        title={res.title}
-                        img={`https://image.tmdb.org/t/p/w500/${res.poster_path}`}
-                        mediaType={res.media_type}
-                        year={res.release_date?.substring(0, 4)}
-                      />
-                    </Menu.Item>
-                  ))}
-              </Menu.Content>
-            </Menu.Positioner>
-          </Portal>
-        </Menu.Root>
+                        value={res.id}
+                        onClick={(e) => {
+                          if (e.target.closest("button")) {
+                            e.preventDefault();
+                            return;
+                          }
+                          navigate(`/movie/${res.id}`);
+                          setMenuIsOpen(false);
+                        }}
+                        onSelect={(e) => e.preventDefault()}
+                      >
+                        <SearchResultsPreviewCard
+                          key={res.id}
+                          mediaId={res.id}
+                          title={res.title}
+                          img={`https://image.tmdb.org/t/p/w500/${res.poster_path}`}
+                          mediaType={res.media_type}
+                          year={res.release_date?.substring(0, 4)}
+                        />
+                      </Menu.Item>
+                    ))}
+                </Menu.Content>
+              </Menu.Positioner>
+            </Portal>
+          </Menu.Root>
+        </Box>
       </Box>
     </Center>
   );

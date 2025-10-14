@@ -12,16 +12,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import { FiHome, FiCompass, FiStar, FiSettings, FiMenu } from "react-icons/fi";
+import { FiHome, FiStar, FiSettings, FiMenu } from "react-icons/fi";
+import { AiOutlineHeart } from "react-icons/ai";
+import { HiEye } from "react-icons/hi2";
 
 import ListCarousel from "./ListCarousel";
 import { UserContext } from "../../store/userContext";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
-  { name: "Watched", icon: FiHome },
-  { name: "Wish List", icon: FiCompass },
-  { name: "Favorites", icon: FiStar },
+  { name: "Watched", icon: HiEye },
+  { name: "Wish List", icon: FiStar },
+  { name: "Favorites", icon: AiOutlineHeart },
   { name: "Settings", icon: FiSettings },
 ];
 export default function UserSidebar() {
@@ -99,10 +101,22 @@ export default function UserSidebar() {
       case "Settings":
         return (
           <>
-            <Text>Adjust your Settings here:</Text>
-            <p>First Name: {firstName}</p>
-            <p>Last Name: {lastName}</p>
-            <p>Email address: {email}</p>
+            <Text
+              w="full"
+              fontSize={{ base: "2xl", md: "3xl" }}
+              fontWeight="bold"
+              textAlign="left"
+              mt={8}
+              mb={4}
+              px={2}
+              borderBottom="2px solid"
+              borderColor="blue.400"
+            >
+              Personal Information:
+            </Text>
+            <Text textAlign="left">First Name: {firstName}</Text>
+            <Text textAlign="left">Last Name: {lastName}</Text>
+            <Text textAlign="left">Email address: {email}</Text>
           </>
         );
       default:
@@ -110,7 +124,7 @@ export default function UserSidebar() {
     }
   };
   return (
-    <Box minW="100vw" bg={boxBg}>
+    <Box minW="90vw" mt={6} bg={"boxBg"} boxShadow="sm">
       <SidebarContent
         onClose={() => onClose}
         onItemSelect={setSelectedPage}

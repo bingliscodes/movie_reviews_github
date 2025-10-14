@@ -35,7 +35,19 @@ export default function ListCarousel({ title, type, mediaList }) {
   if (!mediaData) return <Center> No {type} data available. </Center>;
   return (
     <>
-      <Text py={2}>{title}</Text>
+      <Text
+        w="full"
+        fontSize={{ base: "2xl", md: "3xl" }}
+        fontWeight="bold"
+        textAlign="left"
+        mt={8}
+        mb={4}
+        px={2}
+        borderBottom="2px solid"
+        borderColor="blue.400"
+      >
+        {title}
+      </Text>
       {mediaData.map((media) => (
         <ListCarouselCard
           key={media.id}
