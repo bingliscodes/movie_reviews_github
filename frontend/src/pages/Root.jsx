@@ -17,7 +17,6 @@ export default function RootLayout() {
         backgroundColor: `{colors.${background}}`,
         color: `{colors.${color}}`,
         fontFamily: "{fonts.body}",
-        padding: "{space.4}",
       }}
     >
       <MainNavigation />

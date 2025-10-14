@@ -25,7 +25,7 @@ export default function TvDetails() {
   const [error, setError] = useState(false);
 
   const { userData } = useContext(UserContext);
-  const watchList = userData?.data?.movieWatchList || [];
+  const watchList = userData?.data?.tvWatchList || [];
 
   const bgColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.700", "gray.400");

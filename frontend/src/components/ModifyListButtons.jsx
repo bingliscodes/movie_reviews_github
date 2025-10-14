@@ -28,23 +28,43 @@ export const ModifyListButton = ({ mediaType, type, mediaId }) => {
   let RemoveIcon;
 
   if (type === "wish") {
-    listName = mediaType === "movie" ? "movieWishList" : "tvWishList";
+    if (mediaType === "movie") {
+      listName = "movieWishList";
+      list = userData?.data?.movieWishList || [];
+    }
+    if (mediaType === "tv") {
+      listName = "tvWishList";
+      list = userData?.data?.tvWishList || [];
+    }
     label = "wishlist";
-    list = userData?.data?.movieWishList || [];
     AddIcon = HiMiniBookmark;
     RemoveIcon = HiBookmarkSlash;
   }
+
   if (type === "watch") {
-    listName = mediaType === "movie" ? "movieWatchList" : "tvWatchList";
+    if (mediaType === "movie") {
+      listName = "movieWatchList";
+      list = userData?.data?.movieWatchList || [];
+    }
+    if (mediaType === "tv") {
+      listName = "tvWishList";
+      list = userData?.data?.tvWatchList || [];
+    }
+
     label = "watched";
-    list = userData?.data?.movieWatchList || [];
     AddIcon = MdPlaylistAdd;
     RemoveIcon = MdPlaylistRemove;
   }
   if (type === "favorite") {
-    listName = mediaType === "movie" ? "movieFavoriteList" : "tvFavoriteList";
+    if (mediaType === "movie") {
+      listName = "movieFavoriteList";
+      list = userData?.data?.movieFavoriteList || [];
+    }
+    if (mediaType === "tv") {
+      listName = "tvFavoriteList";
+      list = userData?.data?.tvFavoriteList || [];
+    }
     label = "favorites";
-    list = userData?.data?.movieFavoriteList || [];
     AddIcon = AiFillHeart;
     RemoveIcon = AiOutlineHeart;
   }
