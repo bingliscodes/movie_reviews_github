@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Field, Input, Stack, Button, Container } from "@chakra-ui/react";
+import { Center, Field, Input, Stack, Button, Flex } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 import { signup } from "../utils/js/authentication";
@@ -27,9 +27,9 @@ export default function SignupCard() {
   }
 
   return (
-    <Container maxW="md">
-      <form onSubmit={handleSubmit}>
-        <Stack gap="4" pt={6}>
+    <form onSubmit={handleSubmit}>
+      <Center width="7xl">
+        <Flex direction="column" gap="4" py={6} w="50%">
           <Field.Root>
             <Field.Label>First Name</Field.Label>
             <Input type="text" placeholder="first name" name="firstName" />
@@ -68,8 +68,8 @@ export default function SignupCard() {
           <Stack pt={6}>
             Already a user? <NavLink to="/login">Login</NavLink>
           </Stack>
-        </Stack>
-      </form>
-    </Container>
+        </Flex>
+      </Center>
+    </form>
   );
 }
