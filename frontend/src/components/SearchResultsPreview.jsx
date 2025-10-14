@@ -2,7 +2,6 @@ import SearchResultsPreviewCard from "./SearchResultsPreviewCard";
 
 export default function SearchResultsPreview({ searchResults }) {
   // Filter results to movies for now, then we can addd functionality for people and tv
-  console.log("here!");
   if (!searchResults) return;
 
   // const filteredResults = searchResults.filter(

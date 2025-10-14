@@ -172,6 +172,24 @@ export const fetchUserData = async () => {
   }
 };
 
+export const fetchAllLists = async () => {
+  try {
+    const data = await axios.get(
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/me/all-lists`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    if (data.status !== 200) throw new Error("Failed to fetch lists");
+
+    return data.data.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
 export const addToList = async (listName, mediaId) => {
   try {
     const res = await axios.post(

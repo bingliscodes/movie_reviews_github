@@ -33,7 +33,6 @@ export const login = async (formData) => {
   const { email, password } = formData;
 
   try {
-    console.log("attemping to log user in");
     const loggedInUser = await axios.post(
       "http://localhost:3000/api/v1/users/login",
       { email, password },

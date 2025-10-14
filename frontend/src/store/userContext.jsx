@@ -5,8 +5,10 @@ import { verifyJWT } from "../utils/js/authentication";
 
 export const UserContext = createContext();
 
+// TODO: Create function load/refresh user list to only refresh the user list
+
 export const UserContextProvider = ({ children }) => {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({}); // Should have (id, name, email, etc.)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loadUserData = useCallback(async () => {
@@ -19,7 +21,9 @@ export const UserContextProvider = ({ children }) => {
       }
 
       const userDataRes = await fetchUserData();
-      setUserData(userDataRes);
+      const { id, email, firstName, lastName } = userDataRes;
+
+      setUserData({ id, email, firstName, lastName });
       setIsLoggedIn(true);
     } catch (err) {
       console.error(err);
@@ -33,7 +37,7 @@ export const UserContextProvider = ({ children }) => {
   }, [loadUserData]);
 
   return (
-    <UserContext
+    <UserContext.Provider
       value={{
         userData,
         setUserData,
@@ -43,6 +47,6 @@ export const UserContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </UserContext>
+    </UserContext.Provider>
   );
 };

@@ -16,7 +16,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { HiEye } from "react-icons/hi2";
 
 import ListCarousel from "./ListCarousel";
-import { UserContext } from "../../store/userContext";
+import { UserContext } from "../../store/UserContext";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },

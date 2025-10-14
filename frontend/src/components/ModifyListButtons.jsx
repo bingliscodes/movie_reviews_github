@@ -15,60 +15,63 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdPlaylistAdd, MdPlaylistRemove } from "react-icons/md";
 import { HiMiniBookmark, HiBookmarkSlash } from "react-icons/hi2";
 
-import { UserContext } from "../store/userContext";
-import { addToList, removeFromList } from "../utils/js/apiCalls";
+import { ListContext } from "../store/ListContext";
 
-export const ModifyListButton = ({ mediaType, type, mediaId }) => {
-  const { userData, refreshUserData } = useContext(UserContext);
+export const ModifyListButton = ({ mediaType, listType, mediaId }) => {
+  const {
+    movieWishlist,
+    tvWishlist,
+    movieWatchlist,
+    tvWatchlist,
+    movieFavoriteList,
+    tvFavoriteList,
+    removeItem,
+    addItem,
+    refreshLists,
+  } = useContext(ListContext);
 
   let list;
-  let listName;
   let label;
   let AddIcon;
   let RemoveIcon;
 
-  if (type === "wish") {
+  if (listType === "wishlist") {
     if (mediaType === "movie") {
-      listName = "movieWishList";
-      list = userData?.data?.movieWishList || [];
+      list = movieWishlist || [];
     }
     if (mediaType === "tv") {
-      listName = "tvWishList";
-      list = userData?.data?.tvWishList || [];
+      list = tvWishlist || [];
     }
     label = "wishlist";
     AddIcon = HiMiniBookmark;
     RemoveIcon = HiBookmarkSlash;
   }
 
-  if (type === "watch") {
+  if (listType === "watchlist") {
     if (mediaType === "movie") {
-      listName = "movieWatchList";
-      list = userData?.data?.movieWatchList || [];
+      list = movieWatchlist || [];
     }
     if (mediaType === "tv") {
-      listName = "tvWishList";
-      list = userData?.data?.tvWatchList || [];
+      list = tvWatchlist || [];
     }
-
     label = "watched";
     AddIcon = MdPlaylistAdd;
     RemoveIcon = MdPlaylistRemove;
   }
-  if (type === "favorite") {
+
+  if (listType === "favorites") {
     if (mediaType === "movie") {
-      listName = "movieFavoriteList";
-      list = userData?.data?.movieFavoriteList || [];
+      list = movieFavoriteList || [];
     }
     if (mediaType === "tv") {
-      listName = "tvFavoriteList";
-      list = userData?.data?.tvFavoriteList || [];
+      list = tvFavoriteList || [];
     }
     label = "favorites";
     AddIcon = AiFillHeart;
     RemoveIcon = AiOutlineHeart;
   }
 
+  if (!list) return;
   const isInList = list.includes(mediaId);
 
   return (
@@ -80,14 +83,13 @@ export const ModifyListButton = ({ mediaType, type, mediaId }) => {
       _focus={{ bg: "blue.500" }}
       boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
       onClick={async (e) => {
-        e.preventDefault();
         e.stopPropagation();
 
         isInList
-          ? await removeFromList(listName, mediaId)
-          : await addToList(listName, mediaId);
+          ? await removeItem(listType, mediaType, mediaId)
+          : await addItem(listType, mediaType, mediaId);
 
-        await refreshUserData();
+        await refreshLists();
       }}
     >
       {isInList ? `Remove from ${label}` : `Add to ${label}`}

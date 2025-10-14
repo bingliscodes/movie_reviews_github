@@ -13,7 +13,7 @@ import {
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMediaDetails } from "../utils/js/apiCalls";
-import { UserContext } from "../store/userContext";
+import { ListContext } from "../store/ListContext";
 import CastCarousel from "../components/CastCarousel";
 import { ModifyListButton } from "../components/ModifyListButtons";
 
@@ -23,8 +23,8 @@ export default function TvDetails() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { userData } = useContext(UserContext);
-  const watchList = userData?.data?.tvWatchList || [];
+  const userLists = useContext(ListContext);
+  const watchList = userLists?.movieWatchlist || [];
 
   useEffect(() => {
     async function fetchMediaDetailsAsync() {
@@ -140,19 +140,19 @@ export default function TvDetails() {
               <Stack direction="row" mt={4}>
                 <ModifyListButton
                   mediaType="tv"
-                  type="wish"
+                  listType="wishlist"
                   mediaId={mediaDetails.id}
                 />
                 <ModifyListButton
                   mediaType="tv"
-                  type="watch"
+                  listType="watchlist"
                   mediaId={mediaDetails.id}
                 />
 
                 {watchList.includes(mediaDetails.id) && (
                   <ModifyListButton
                     mediaType="tv"
-                    type="favorite"
+                    listType="favorites"
                     mediaId={mediaDetails.id}
                   />
                 )}

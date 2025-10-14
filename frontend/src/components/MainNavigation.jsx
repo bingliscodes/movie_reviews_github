@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { HiMiniUserCircle } from "react-icons/hi2";
 
 import { ColorModeButton } from "@/components/ui/color-mode";
-import { UserContext } from "../store/userContext";
+import { UserContext } from "../store/UserContext";
 import { logout } from "../utils/js/authentication";
 
 export default function MainNavigation() {

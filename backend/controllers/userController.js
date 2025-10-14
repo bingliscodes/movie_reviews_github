@@ -15,7 +15,6 @@ export const getMe = catchAsync(async (req, res, next) => {
 
 export const addToList = catchAsync(async (req, res, next) => {
   const { listName, mediaId } = req.body;
-
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $addToSet: { [listName]: mediaId } },
@@ -86,6 +85,34 @@ export const getFavorites = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: { favoriteMovies, favoriteTv },
+  });
+  next();
+});
+
+export const getAllLists = catchAsync(async (req, res, next) => {
+  const currentUser = await User.findById(req.user._id);
+
+  if (!currentUser) return next(new AppError('No user found', 401));
+
+  const {
+    movieWishlist,
+    tvWishlist,
+    movieWatchlist,
+    tvWatchlist,
+    movieFavoriteList,
+    tvFavoriteList,
+  } = currentUser;
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      movieWishlist,
+      tvWishlist,
+      movieWatchlist,
+      tvWatchlist,
+      movieFavoriteList,
+      tvFavoriteList,
+    },
   });
   next();
 });

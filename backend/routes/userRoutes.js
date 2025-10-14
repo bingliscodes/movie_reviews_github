@@ -14,6 +14,7 @@ import {
   getFavorites,
   getMe,
   removeFromList,
+  getAllLists,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -38,6 +39,8 @@ router
   .get(getFavorites)
   .post(addToList)
   .delete(removeFromList);
+
+router.get('/me/all-lists', getAllLists);
 
 router.route('/').get(getAllUsers);
 

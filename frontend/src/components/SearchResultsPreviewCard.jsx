@@ -38,7 +38,11 @@ export default function SearchResultsPreviewCard({
         <Text fontSize="xs" color="gray.400">
           {year}
         </Text>
-        <ModifyListButton mediaType={mediaType} type="wish" mediaId={mediaId} />
+        <ModifyListButton
+          mediaType={mediaType}
+          listType="wishlist"
+          mediaId={mediaId}
+        />
       </Box>
     </Flex>
   );
