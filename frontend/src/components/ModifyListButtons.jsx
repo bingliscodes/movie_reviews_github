@@ -72,6 +72,7 @@ export const ModifyListButton = ({ mediaType, listType, mediaId }) => {
   }
 
   if (!list) return;
+
   const isInList = list.includes(mediaId);
 
   return (

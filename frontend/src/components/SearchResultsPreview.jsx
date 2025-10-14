@@ -1,4 +1,5 @@
 import SearchResultsPreviewCard from "./SearchResultsPreviewCard";
+import { Center, Container } from "@chakra-ui/react";
 
 export default function SearchResultsPreview({ searchResults }) {
   // Filter results to movies for now, then we can addd functionality for people and tv

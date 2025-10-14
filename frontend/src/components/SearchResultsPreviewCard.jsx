@@ -11,10 +11,9 @@ export default function SearchResultsPreviewCard({
   return (
     <Flex
       // These dimensions affect the individual movie cards
+      bg="bg.menuItem"
       width="100%"
-      height="auto"
-      bg="gray.900"
-      color="white"
+      color="text"
       borderRadius="md"
       overflow="hidden"
       boxShadow="md"
@@ -35,7 +34,7 @@ export default function SearchResultsPreviewCard({
         <Text fontWeight="bold" fontSize="md" noOfLines={2}>
           {title}
         </Text>
-        <Text fontSize="xs" color="gray.400">
+        <Text fontSize="xs" color="text">
           {year}
         </Text>
         <ModifyListButton

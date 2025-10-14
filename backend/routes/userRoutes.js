@@ -33,6 +33,7 @@ router
   .get(getWatched)
   .post(addToList)
   .delete(removeFromList);
+
 router.route('/me/wish').get(getWish).post(addToList).delete(removeFromList);
 router
   .route('/me/favorites')

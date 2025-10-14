@@ -23,6 +23,12 @@ export const system = createSystem(defaultConfig, {
           badge: {
             value: { base: "colors.gray.50", _dark: "colors.gray.800" },
           },
+          menu: {
+            value: { base: "colors.gray.200", _dark: "colors.gray.900" },
+          },
+          menuItem: {
+            value: { base: "colors.blue.100", _dark: "colors.blue.900" },
+          },
         },
         text: {
           DEFAULT: {

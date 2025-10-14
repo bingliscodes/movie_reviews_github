@@ -52,8 +52,8 @@ export default function SearchBar() {
             onEscapeKeyDown={() => setMenuIsOpen(false)}
           >
             <Portal>
-              <Menu.Positioner width="100%">
-                <Menu.Content bg="white" boxShadow="xl" borderRadius="md">
+              <Menu.Positioner width="50%">
+                <Menu.Content bg="bg.menu" boxShadow="xl" borderRadius="md">
                   {searchResults &&
                     searchResults.map((res) => (
                       <Menu.Item
