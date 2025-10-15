@@ -27,7 +27,7 @@ export const system = createSystem(defaultConfig, {
             value: { base: "colors.gray.200", _dark: "colors.gray.900" },
           },
           menuItem: {
-            value: { base: "colors.blue.100", _dark: "colors.blue.900" },
+            value: { base: "colors.blue.100", _dark: "colors.gray.900" },
           },
         },
         text: {
@@ -48,10 +48,6 @@ export const system = createSystem(defaultConfig, {
     },
     tokens: {
       colors: {
-        // primaryBtn: { value: "gray.600", _dark: "blue.300" },
-        // primary: { value: "black", _dark: "blue.300" },
-        // logoColor: { value: "gray.900", _dark: "white" },
-        // primaryBtnHover: { value: "blue.700", _dark: "blue.500" },
         primary: { value: "black" },
         secondary: { value: "white" },
       },

@@ -93,7 +93,7 @@ export const ModifyListButton = ({ mediaType, listType, mediaId }) => {
         await refreshLists();
       }}
     >
-      {isInList ? `Remove from ${label}` : `Add to ${label}`}
+      {/* {isInList ? `Remove from ${label}` : `Add to ${label}`} */}
       {isInList ? <RemoveIcon /> : <AddIcon />}
     </Button>
   );
