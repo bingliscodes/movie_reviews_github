@@ -1,14 +1,5 @@
 "use client";
-import {
-  Badge,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 import { useContext } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -78,11 +69,11 @@ export const ModifyListButton = ({ mediaType, listType, mediaId }) => {
   return (
     <Button
       rounded="full"
+      size="xs"
       bg="blue.400"
       color="white"
       _hover={{ bg: "blue.500" }}
       _focus={{ bg: "blue.500" }}
-      boxShadow="0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
       onClick={async (e) => {
         e.stopPropagation();
 

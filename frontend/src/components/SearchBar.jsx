@@ -24,7 +24,6 @@ export default function SearchBar() {
     (res) =>
       (res.media_type === "movie" || res.media_type === "tv") && res.poster_path
   );
-  console.log(filteredResults);
 
   // TODO: Group menu items by type
   // TODO: Determine if there is a way to get actors without making 10 api calls each time a search is made

@@ -30,7 +30,7 @@ export default function SearchResultsPreviewCard({
         borderRadius="md"
         flexShrink={0}
       />
-      <Box flex="1" overflow="hidden">
+      <Box flex="1">
         <Text fontWeight="bold" fontSize="md" noOfLines={2}>
           {title}
         </Text>
