@@ -3,9 +3,9 @@
 import { Input, Center, Box, Button, Menu, Portal } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchSearchResults } from "../utils/js/apiCalls";
 import { debounce } from "lodash";
 
+import { fetchSearchResults } from "../utils/js/apiCalls";
 import SearchResultsPreviewCard from "./SearchResultsPreviewCard";
 
 export default function SearchBar() {
@@ -20,7 +20,12 @@ export default function SearchBar() {
     setMenuIsOpen(searchRes.length === 0 ? false : true);
   }, 500);
 
-  // TODO: Use first_air_date field for media_type = tv
+  const filteredResults = searchResults?.filter(
+    (res) =>
+      (res.media_type === "movie" || res.media_type === "tv") && res.poster_path
+  );
+  console.log(filteredResults);
+
   // TODO: Group menu items by type
   // TODO: Determine if there is a way to get actors without making 10 api calls each time a search is made
   // Currently we have to Get actors by making call to the movie/movie_id/credits endpoint, then take the first 2 and list them
@@ -54,17 +59,13 @@ export default function SearchBar() {
             <Portal>
               <Menu.Positioner width="50%">
                 <Menu.Content bg="bg.menu" boxShadow="xl" borderRadius="md">
-                  {searchResults &&
-                    searchResults.map((res) => (
+                  {filteredResults &&
+                    filteredResults.map((res) => (
                       <Menu.Item
                         key={res.id}
                         value={res.id}
-                        onClick={(e) => {
-                          if (e.target.closest("button")) {
-                            e.preventDefault();
-                            return;
-                          }
-                          navigate(`/movie/${res.id}`);
+                        onClick={() => {
+                          navigate(`/${res.media_type}/${res.id}`);
                           setMenuIsOpen(false);
                         }}
                         onSelect={(e) => e.preventDefault()}
@@ -72,10 +73,16 @@ export default function SearchBar() {
                         <SearchResultsPreviewCard
                           key={res.id}
                           mediaId={res.id}
-                          title={res.title}
+                          title={
+                            res.media_type === "movie" ? res.title : res.name
+                          }
                           img={`https://image.tmdb.org/t/p/w500/${res.poster_path}`}
                           mediaType={res.media_type}
-                          year={res.release_date?.substring(0, 4)}
+                          year={
+                            res.media_type === "movie"
+                              ? res.release_date.substring(0, 4)
+                              : res.first_air_date.substring(0, 4)
+                          }
                         />
                       </Menu.Item>
                     ))}

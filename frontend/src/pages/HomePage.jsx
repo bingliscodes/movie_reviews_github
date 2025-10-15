@@ -5,6 +5,7 @@ import { fetchData, fetchMediaDetails } from "../utils/js/apiCalls";
 import { UserContext } from "../store/userContext";
 import SearchBar from "../components/SearchBar";
 import ChakraCarousel from "../chakra-ui/ChakraCarousel";
+import MovieRecommender from "../components/MovieRecomender";
 
 export default function HomePage() {
   const { userData, isLoggedIn } = useContext(UserContext);
@@ -144,6 +145,7 @@ export default function HomePage() {
   return (
     <>
       <SearchBar />
+      <MovieRecommender />
       {movieWishlistData?.length > 0 && (
         <ChakraCarousel
           carouselData={movieWishlistData}
