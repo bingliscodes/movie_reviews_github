@@ -124,7 +124,7 @@ export default function HomePage() {
 
   if (popularShowData) {
     popularShowCarouselData = popularShowData.map((el) => ({
-      title: el.title,
+      title: el.name,
       rating: el.vote_average,
       releaseDate: el.first_air_date,
       img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
@@ -134,7 +134,7 @@ export default function HomePage() {
 
   if (trendingShowData) {
     trendingShowCarouselData = trendingShowData.map((el) => ({
-      title: el.title,
+      title: el.name,
       rating: el.vote_average,
       releaseDate: el.first_air_date,
       img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,

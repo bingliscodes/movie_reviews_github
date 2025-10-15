@@ -1,17 +1,8 @@
-import {
-  Button,
-  CheckboxCard,
-  For,
-  Stack,
-  Portal,
-  useCheckboxGroup,
-  Menu,
-} from "@chakra-ui/react";
+import { Button, Portal, useCheckboxGroup, Menu } from "@chakra-ui/react";
 
 export default function MovieRecommender() {
   // This stores the checked items in an array called "value"
   const group = useCheckboxGroup();
-  console.log(group.value);
   // Now we need to pass in the moods and translate them to a list of movies
   // Will map each mood to a genre, then make a query to get popular movies that fit the genres
   return (

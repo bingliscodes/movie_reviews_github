@@ -19,14 +19,14 @@ export default function CarouselCard({
     <Card.Root
       maxW="sm"
       width="auto"
-      height="auto"
+      height="500px"
       margin="1em"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
       onClick={handleClick}
     >
-      <Card.Header p="0" height="55%">
+      <Card.Header p="0" height="75%">
         <Image
           src={img}
           alt={`Cover image for ${title}`}
