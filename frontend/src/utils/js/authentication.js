@@ -4,7 +4,7 @@ export const signup = async (formData) => {
   const { firstName, lastName, email, password, passwordConfirm } = formData;
   try {
     const newUserRes = await axios.post(
-      "http://localhost:3000/api/v1/users/signup",
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/signup`,
       {
         firstName,
         lastName,
@@ -34,7 +34,7 @@ export const login = async (formData) => {
 
   try {
     const loggedInUser = await axios.post(
-      "http://localhost:3000/api/v1/users/login",
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/login`,
       { email, password },
       {
         withCredentials: true,
@@ -62,9 +62,12 @@ export const login = async (formData) => {
 
 export const logout = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/api/v1/users/logout", {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/users/logout`,
+      {
+        withCredentials: true,
+      }
+    );
     if (res.data.status === "success") {
       alert(
         "Logout successfully! You will now be redirected to the home page."
@@ -81,9 +84,12 @@ export const logout = async () => {
 
 export const verifyJWT = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/api/v1/auth/me", {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      `${import.meta.env.VITE_DEV_API_BASE_URL}api/v1/auth/me`,
+      {
+        withCredentials: true,
+      }
+    );
 
     if (!res.status === 200)
       throw new Error("Failed to get logged in user. Please log in.");
