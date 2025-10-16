@@ -16,7 +16,7 @@ export default function SearchBar() {
 
   const debounceOnChange = debounce(async (e) => {
     const searchRes = await fetchSearchResults(e.target.value);
-    setSearchResults(searchRes.slice(10));
+    setSearchResults(searchRes.slice(0, 10));
     setMenuIsOpen(searchRes.length === 0 ? false : true);
   }, 500);
 
