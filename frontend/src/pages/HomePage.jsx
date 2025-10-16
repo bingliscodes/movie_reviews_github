@@ -5,7 +5,7 @@ import { fetchData, fetchMediaDetails } from "../utils/js/apiCalls";
 import { UserContext } from "../store/userContext";
 import SearchBar from "../components/SearchBar";
 import ChakraCarousel from "../chakra-ui/ChakraCarousel";
-import MovieRecommender from "../components/MovieRecomender";
+import MovieRecommender from "../components/MovieRecommender";
 
 export default function HomePage() {
   const { userData, isLoggedIn } = useContext(UserContext);
@@ -13,6 +13,7 @@ export default function HomePage() {
   const [data, setData] = useState(null);
   const [tvWishlistData, setTvWishlistData] = useState([]);
   const [movieWishlistData, setMovieWishlistData] = useState([]);
+  const [movieRecsData, setMovieRecsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -145,7 +146,16 @@ export default function HomePage() {
   return (
     <>
       <SearchBar />
-      <MovieRecommender />
+      <MovieRecommender setMovieRecsData={setMovieRecsData} />
+
+      {movieRecsData?.length > 0 && (
+        <ChakraCarousel
+          carouselData={movieRecsData}
+          title="Personalized Movie Recommendations"
+          type="movie"
+        />
+      )}
+
       {movieWishlistData?.length > 0 && (
         <ChakraCarousel
           carouselData={movieWishlistData}

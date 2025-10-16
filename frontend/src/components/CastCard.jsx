@@ -18,6 +18,7 @@ export default function CastCard({ actorName, characterName, img, id }) {
           objectFit="cover"
           width="100%"
           height="100%"
+          onClick={() => window.open(`https://www.themoviedb.org/person/${id}`)}
         />
       </Card.Header>
 

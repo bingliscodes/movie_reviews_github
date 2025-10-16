@@ -233,21 +233,20 @@ export const removeFromList = async (listName, mediaId) => {
 };
 
 export const recommendMoviesByGenre = async (genres) => {
-  console.log(genres);
-  console.log(genres.join("%2C"));
   try {
     const res = await axios({
       method: "GET",
       url: `${
         import.meta.env.VITE_TMDB_API_BASE_URL
-      }discover/movie?with_genres=${genres.join("%2C")}`,
+      }discover/movie?sort_by=popularity.desc&with_genres=${genres.join(
+        "%2C"
+      )}`,
       headers,
     });
 
     if (res.status !== 200)
       throw new Error("Failed to get movie recommendations!");
 
-    console.log(res.data);
     return res.data.results;
   } catch (err) {
     console.error(err);

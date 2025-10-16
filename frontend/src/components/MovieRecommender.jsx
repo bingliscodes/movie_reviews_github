@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-  Center,
-  Button,
-  Portal,
-  useCheckboxGroup,
-  Menu,
-} from "@chakra-ui/react";
+import { Button, Portal, useCheckboxGroup, Menu } from "@chakra-ui/react";
 import { getGenresFromMoods } from "../utils/js/movieRecommender";
 import { recommendMoviesByGenre } from "../utils/js/apiCalls";
 
-export default function MovieRecommender() {
-  const [recommendations, setRecommendations] = useState();
-  const [loading, setLoading] = useState();
-  const [error, setError] = useState();
+import ChakraCarousel from "../chakra-ui/ChakraCarousel";
+
+export default function MovieRecommender({ setMovieRecsData }) {
   // This stores the checked items in an array called "value"
   const group = useCheckboxGroup();
   // Now we need to pass in the moods and translate them to a list of movies
@@ -25,14 +17,19 @@ export default function MovieRecommender() {
     console.log(genres);
     try {
       const res = await recommendMoviesByGenre(genres);
-      setRecommendations(res);
-      console.log(res);
+      // Filter to top 10
+      const filteredRes = res.slice(10);
+      const movieRecs = filteredRes.map((el) => ({
+        title: el.title,
+        rating: el.vote_average,
+        releaseDate: el.release_date,
+        img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
+        id: el.id,
+      }));
+      setMovieRecsData(movieRecs);
     } catch (err) {
-      setError(err);
       console.error(err);
     }
-
-    setLoading(false);
   };
   // useEffect(() => {
   //   async function fetchRecommendationsAsync() {
@@ -55,13 +52,13 @@ export default function MovieRecommender() {
 
   return (
     <>
-      <Button onClick={handleClick}>Go!</Button>
       <Menu.Root closeOnSelect={false}>
         <Menu.Trigger asChild>
           <Button mt={4} bg="bg.primaryBtn" variant="outline" size="sm">
             Recommend a movie!
           </Button>
         </Menu.Trigger>
+        <Button onClick={handleClick}>Go!</Button>
         <Portal>
           <Menu.Positioner>
             <Menu.Content>
