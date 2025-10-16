@@ -17,10 +17,8 @@ export default function CarouselCard({
 
   return (
     <Card.Root
-      maxW="sm"
-      width="auto"
       height="500px"
-      margin="1em"
+      width="auto"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"

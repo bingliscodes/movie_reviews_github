@@ -1,5 +1,6 @@
 "use client";
 
+import { Global } from "@emotion/react";
 import { useState } from "react";
 import {
   Box,
@@ -24,6 +25,32 @@ const settings = {
   autoplaySpeed: 5000,
   slidesToShow: 5,
   slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 4,
+      },
+    },
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
 };
 
 export default function ChakraCarousel({ carouselData = [], title, type }) {
@@ -35,6 +62,18 @@ export default function ChakraCarousel({ carouselData = [], title, type }) {
 
   return (
     <Container maxW="container.lg" centerContent>
+      <Global
+        styles={`
+    .slick-slide {
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .slick-list {
+      margin: 0 -10px; 
+    }
+  `}
+      />
       <Text
         w="full"
         fontSize={{ base: "2xl", md: "3xl" }}
@@ -98,10 +137,10 @@ export default function ChakraCarousel({ carouselData = [], title, type }) {
           ref={(slider) => setSlider(slider)}
           key={carouselData.length} // 👈 this forces Slider to remount when data changes
         >
-          {carouselData.map((el, idx) => {
+          {carouselData.map((el) => {
             return (
               <CarouselCard
-                key={idx}
+                key={el.id}
                 img={el.img}
                 rating={el.rating}
                 title={el.title}
