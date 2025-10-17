@@ -64,4 +64,9 @@ app.use(xss());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 
+// Default error handling
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
 export default app;
