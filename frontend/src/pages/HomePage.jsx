@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 
 import { fetchData, fetchMediaDetails } from "../utils/js/apiCalls";
 
-import { UserContext } from "../store/userContext";
+import { UserContext } from "../store/UserContext";
 import SearchBar from "../components/SearchBar";
 import ChakraCarousel from "../chakra-ui/ChakraCarousel";
 import MovieRecommender from "../components/MovieRecommender";
