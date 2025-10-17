@@ -222,5 +222,5 @@ export const ListContextProvider = ({ children }) => {
     removeItem,
   };
 
-  return <ListContext value={value}>{children}</ListContext>;
+  return <ListContext.Provider value={value}>{children}</ListContext.Provider>;
 };

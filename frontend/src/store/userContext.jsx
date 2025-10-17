@@ -35,7 +35,7 @@ export const UserContextProvider = ({ children }) => {
   }, [loadUserData]);
 
   return (
-    <UserContext
+    <UserContext.Provider
       value={{
         userData,
         setUserData,
@@ -45,6 +45,6 @@ export const UserContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </UserContext>
+    </UserContext.Provider>
   );
 };
