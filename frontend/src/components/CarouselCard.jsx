@@ -17,7 +17,7 @@ export default function CarouselCard({
 
   return (
     <Card.Root
-      height="500px"
+      height="30rem"
       width="auto"
       display="flex"
       flexDirection="column"

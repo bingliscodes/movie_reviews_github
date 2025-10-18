@@ -1,5 +1,6 @@
 "use client";
 
+import { Global } from "@emotion/react";
 import { useState } from "react";
 import {
   Box,
@@ -25,6 +26,32 @@ const settings = {
   autoplaySpeed: 5000,
   slidesToShow: 5,
   slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 4,
+      },
+    },
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
 };
 export default function CastCarousel({ credits }) {
   const [slider, setSlider] = useState(null);
@@ -39,13 +66,37 @@ export default function CastCarousel({ credits }) {
 
   return (
     <Container maxW="container.lg" centerContent>
-      <Text fontSize="xx-large"> Cast </Text>
+      <Global
+        styles={`
+          .slick-slide {
+            padding: 0 10px;
+            box-sizing: border-box;
+          }
+      
+          .slick-list {
+            margin: 0 -10px; 
+          }
+        `}
+      />
+      <Text
+        w="full"
+        fontSize={{ base: "2xl", md: "3xl" }}
+        fontWeight="bold"
+        textAlign="left"
+        mt={8}
+        mb={4}
+        px={2}
+        borderBottom="2px solid"
+        borderColor="blue.400"
+      >
+        Cast
+      </Text>
       <Box
         position={"relative"}
         height={"auto"}
         width={"full"}
         overflow={"hidden"}
-        py={"1em"}
+        py={"2em"}
       >
         {/* CSS files for react-slick */}
         <link
@@ -85,7 +136,11 @@ export default function CastCarousel({ credits }) {
           <BiRightArrowAlt />
         </IconButton>
         {/* Slider */}
-        <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        <Slider
+          {...settings}
+          ref={(slider) => setSlider(slider)}
+          key={credits.length}
+        >
           {cast.map((el) => (
             <CastCard
               actorName={el.name}

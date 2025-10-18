@@ -3,15 +3,13 @@ import { Card, Image, Text } from "@chakra-ui/react";
 export default function CastCard({ actorName, characterName, img, id }) {
   return (
     <Card.Root
-      maxW="sm"
       width="auto"
-      height="auto"
-      margin="1em"
+      height="30rem"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
     >
-      <Card.Header p="0" height="55%">
+      <Card.Header p="0" height="65%">
         <Image
           src={`https://image.tmdb.org/t/p/w500/${img}`}
           alt={`Image for ${actorName}`}
@@ -23,10 +21,9 @@ export default function CastCard({ actorName, characterName, img, id }) {
       </Card.Header>
 
       <Card.Body p="3" flex="1">
-        <Text fontSize="md" fontWeight="bold" noOfLines={2}>
+        <Text fontSize="md" fontWeight="bold">
           {actorName}
         </Text>
-        <Text fontSize="sm">{characterName}</Text>
       </Card.Body>
     </Card.Root>
   );
