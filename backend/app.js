@@ -60,6 +60,10 @@ app.use('/api', limiter);
 // Data sanitization against XSS
 // app.use(xss());
 
+// Test Route
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
 // ROUTES
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
