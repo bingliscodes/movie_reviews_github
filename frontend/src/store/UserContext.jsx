@@ -33,7 +33,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     loadUserData();
   }, [loadUserData]);
-
+  console.log(userData, isLoggedIn);
   return (
     <UserContext.Provider
       value={{
