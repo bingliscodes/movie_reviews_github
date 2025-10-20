@@ -154,7 +154,7 @@ export default function CastCarousel({ credits }) {
           {cast.map((el) => (
             <CastCard
               actorName={el.name}
-              characterName={el.chacacter}
+              characterName={el.character}
               img={el.profile_path}
               id={el.id}
             />

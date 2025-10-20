@@ -1,12 +1,20 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchMediaDetails } from "../utils/js/apiCalls";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 export default function MovieTrailer() {
   const [filteredVideos, setFilteredVideos] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const iframeHeight = useBreakpointValue({
+    base: "200px", // phones
+    sm: "300px", // small tablets
+    md: "400px", // tablets
+    lg: "500px", // desktops
+    xl: "545px", // large screens
+  });
   let { mediaId } = useParams();
 
   useEffect(() => {
@@ -38,7 +46,7 @@ export default function MovieTrailer() {
     filteredVideos && (
       <iframe
         width="50%"
-        height="545"
+        height={iframeHeight}
         title="YouTube Video Player"
         src={`https://www.youtube.com/embed/${filteredVideos[0]?.key}`}
         allowFullScreen

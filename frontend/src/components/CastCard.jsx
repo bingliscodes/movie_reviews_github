@@ -24,6 +24,9 @@ export default function CastCard({ actorName, characterName, img, id }) {
         <Text fontSize="md" fontWeight="bold">
           {actorName}
         </Text>
+        <Text fontSize="sm" fontWeight="light">
+          {characterName}
+        </Text>
       </Card.Body>
     </Card.Root>
   );
