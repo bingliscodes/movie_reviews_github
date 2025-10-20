@@ -69,8 +69,11 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 
 // Default error handling
-// app.all('/{any}', (req, res, next) => {
-//   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-// });
+app.all('*', (req, res) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
 
 export default app;
