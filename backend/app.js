@@ -69,7 +69,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 
 // Default error handling
-app.all('*', (req, res) => {
+app.get('/{*any}', (req, res) => {
   res.status(404).json({
     status: 'fail',
     message: `Can't find ${req.originalUrl} on this server!`,
