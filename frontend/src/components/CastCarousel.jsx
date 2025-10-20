@@ -59,6 +59,13 @@ export default function CastCarousel({ credits }) {
   // These are the breakpoints which changes the position of the buttons as the screen size changes
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
+  const slidesToShow = useBreakpointValue({
+    base: 1,
+    sm: 2,
+    md: 3,
+    lg: 4,
+    xl: 5,
+  });
 
   if (!credits) return <Center>No movie credits data</Center>;
 
@@ -137,7 +144,10 @@ export default function CastCarousel({ credits }) {
         </IconButton>
         {/* Slider */}
         <Slider
-          {...settings}
+          {...{
+            ...settings,
+            slidesToShow: slidesToShow || 1, // fallback to 1
+          }}
           ref={(slider) => setSlider(slider)}
           key={credits.length}
         >

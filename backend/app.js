@@ -58,7 +58,7 @@ app.use('/api', limiter);
 // app.use(mongoSanitize());
 
 // Data sanitization against XSS
-app.use(xss());
+// app.use(xss());
 
 // ROUTES
 app.use('/api/v1/auth', authRouter);
