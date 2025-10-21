@@ -12,7 +12,6 @@ import { logout } from "../utils/js/authentication";
 export default function MainNavigation() {
   const nav = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
-  console.log(isLoggedIn);
 
   return (
     <Box bg="bg.nav" boxShadow="sm" top={0} zIndex={999} w="100%" py={3}>

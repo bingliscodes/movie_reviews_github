@@ -1,10 +1,21 @@
-import { Button, Portal, useCheckboxGroup, Menu } from "@chakra-ui/react";
+import {
+  Button,
+  Portal,
+  useCheckboxGroup,
+  CloseButton,
+  Dialog,
+} from "@chakra-ui/react";
+import { useState } from "react";
+
 import { getGenresFromMoods } from "../utils/js/movieRecommender";
 import { recommendMoviesByGenre } from "../utils/js/apiCalls";
+import MultipleChoiceQuestions from "./MultipleChoiceQuestions";
 
 export default function MovieRecommender({ setMovieRecsData }) {
   // This stores the checked items in an array called "value"
   const group = useCheckboxGroup();
+  const [questionIdx, setQuestionIdx] = useState(0);
+  const [answers, setAnswer] = useState([0, 0, 0, 0, 0]);
 
   // 1. Map mood to genres
   const handleClick = async () => {
@@ -34,62 +45,67 @@ export default function MovieRecommender({ setMovieRecsData }) {
     }
   };
 
-  const handleHideResults = () => {
-    setMovieRecsData([]);
-    return;
+  const handleIncrementQuestion = () => {
+    setQuestionIdx((prevIdx) => {
+      if (prevIdx === 4) return prevIdx;
+      return prevIdx + 1;
+    });
   };
+  const handleDecrementQuestion = () => {
+    setQuestionIdx((prevIdx) => {
+      if (prevIdx === 0) return prevIdx;
+
+      return prevIdx - 1;
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("submitting data!");
+  };
+
+  const handleClearAnswers = () => {
+    setAnswer([0, 0, 0, 0, 0]);
+    setQuestionIdx(0);
+  };
+  console.log("answers are...", answers);
 
   return (
     <>
-      <Menu.Root closeOnSelect={false}>
-        <Menu.Trigger asChild>
-          <Button mt={4} bg="bg.primaryBtn" variant="outline" size="sm">
-            What is your current mood?
-          </Button>
-        </Menu.Trigger>
-        <Button
-          mt={4}
-          ml={4}
-          bg="bg.primaryBtn"
-          variant="outline"
-          size="sm"
-          onClick={handleClick}
-        >
-          Go
-        </Button>
-        <Button
-          mt={4}
-          ml={4}
-          bg="bg.stack"
-          variant="outline"
-          size="sm"
-          onClick={handleHideResults}
-        >
-          Hide Results
-        </Button>
+      <Dialog.Root onExitComplete={handleClearAnswers}>
+        <Dialog.Trigger margin={4}>
+          <Button variant="solid">Get movie recommendations</Button>
+        </Dialog.Trigger>
         <Portal>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.ItemGroup>
-                <Menu.ItemGroupLabel>Select one or more:</Menu.ItemGroupLabel>
-                {moods.map(({ title, value }) => (
-                  <Menu.CheckboxItem
-                    key={value}
-                    value={value}
-                    checked={group.isChecked(value)}
-                    onCheckedChange={() => {
-                      group.toggleValue(value);
-                    }}
-                  >
-                    {title}
-                    <Menu.ItemIndicator />
-                  </Menu.CheckboxItem>
-                ))}
-              </Menu.ItemGroup>
-            </Menu.Content>
-          </Menu.Positioner>
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content>
+              <Dialog.Header>
+                <Dialog.Title>
+                  Please answer the following questions:
+                </Dialog.Title>
+              </Dialog.Header>
+              <Dialog.Body>
+                <MultipleChoiceQuestions
+                  questionNumber={questionIdx}
+                  handleSetAnswer={setAnswer}
+                />
+              </Dialog.Body>
+              <Dialog.Footer>
+                <Button onClick={handleDecrementQuestion}>Previous</Button>
+
+                {questionIdx === 4 ? (
+                  <Button onClick={handleSubmit}>Go!</Button>
+                ) : (
+                  <Button onClick={handleIncrementQuestion}>Next</Button>
+                )}
+              </Dialog.Footer>
+              <Dialog.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </Dialog.CloseTrigger>
+            </Dialog.Content>
+          </Dialog.Positioner>
         </Portal>
-      </Menu.Root>
+      </Dialog.Root>
     </>
   );
 }
