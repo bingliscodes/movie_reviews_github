@@ -32,7 +32,7 @@ export default function MultipleChoiceQuestions({
       <Select.Label>{questionText}</Select.Label>
       <Select.Control>
         <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
+          <Select.ValueText placeholder="Select an option" color="black" />
         </Select.Trigger>
         <Select.IndicatorGroup>
           <Select.Indicator />

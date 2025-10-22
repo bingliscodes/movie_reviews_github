@@ -232,7 +232,11 @@ export const removeFromList = async (listName, mediaId) => {
   }
 };
 
-export const recommendMoviesByGenre = async (genres) => {
+export const recommendMoviesByGenre = async (
+  genres,
+  minYear = "1800",
+  maxYear = "3000"
+) => {
   try {
     const res = await axios({
       method: "GET",
@@ -240,13 +244,13 @@ export const recommendMoviesByGenre = async (genres) => {
         import.meta.env.VITE_TMDB_API_BASE_URL
       }discover/movie?sort_by=popularity.desc&with_genres=${genres.join(
         "%2C"
-      )}`,
+      )}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`,
       headers,
     });
 
     if (res.status !== 200)
       throw new Error("Failed to get movie recommendations!");
-
+    console.log(res.data);
     return res.data.results;
   } catch (err) {
     console.error(err);
