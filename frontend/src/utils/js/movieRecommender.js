@@ -98,8 +98,6 @@ export const movieRecommendationData = [
   },
 ];
 
-// Assign Scores:
-
 export const updateGenreScores = (answers) => {
   /* Takes in an array of answers, then applies the genre scores based on each */
   const genreScores = {
@@ -261,17 +259,35 @@ export const getTimePeriod = (answers) => {
   return { minYear, maxYear };
 };
 
-export const getTopNGenres = (sortedGenres, n = 3) => {
-  /* Takes in an array of genres with scores and a number (n) of top genres, returns an array of the top n genres. */
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const introduceRandomness = (genreScores) => {
+  /* Takes in an object of genre scores, then randomly adds 0-2 points to each genre */
+  const updatedScores = { ...genreScores };
+  console.log("pre: ", updatedScores);
+  Object.keys(updatedScores).forEach((genre) => {
+    updatedScores[genre] += getRandomInt(0, 2);
+  });
+
+  console.log("post: ", updatedScores);
+  return updatedScores;
+};
+
+export const getTopNGenres = (genres, n = 3) => {
+  /* Takes in an array of genres, with scores and a number (n) of top genres, returns an array of the top n genres. */
 
   const requiredObj = {};
-  if (n > Object.keys(sortedGenres).length) return false;
+  if (n > Object.keys(genres).length) return false;
 
-  Object.keys(sortedGenres)
-    .sort((a, b) => sortedGenres[b] - sortedGenres[a])
+  Object.keys(genres)
+    .sort((a, b) => genres[b] - genres[a])
     .forEach((key, ind) => {
       if (ind < n) {
-        requiredObj[key] = sortedGenres[key];
+        requiredObj[key] = genres[key];
       }
     });
   return Object.keys(requiredObj);

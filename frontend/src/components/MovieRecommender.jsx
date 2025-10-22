@@ -6,6 +6,7 @@ import {
   updateGenreScores,
   genresMap,
   getTimePeriod,
+  introduceRandomness,
 } from "../utils/js/movieRecommender";
 import { recommendMoviesByGenre } from "../utils/js/apiCalls";
 import MultipleChoiceQuestions from "./MultipleChoiceQuestions";
@@ -31,7 +32,8 @@ export default function MovieRecommender({ setMovieRecsData }) {
 
   const handleSubmit = async () => {
     const genreScores = updateGenreScores(answers);
-    const top3Genres = getTopNGenres(genreScores);
+    const updatedGenres = introduceRandomness(genreScores);
+    const top3Genres = getTopNGenres(updatedGenres);
     const mappedGenres = top3Genres.map((genre) => genresMap[genre]);
     const { minYear, maxYear } = getTimePeriod(answers);
 
@@ -62,7 +64,7 @@ export default function MovieRecommender({ setMovieRecsData }) {
   return (
     <>
       <Dialog.Root onExitComplete={handleClearAnswers}>
-        <Dialog.Trigger margin={4}>
+        <Dialog.Trigger margin={4} asChild>
           <Button variant="solid">Get movie recommendations</Button>
         </Dialog.Trigger>
         <Portal>
