@@ -234,8 +234,9 @@ export const removeFromList = async (listName, mediaId) => {
 
 export const recommendMoviesByGenre = async (
   genres,
-  minYear = "1800",
-  maxYear = "3000"
+  minYear,
+  maxYear,
+  randomSort
 ) => {
   try {
     const res = await axios({
@@ -244,14 +245,16 @@ export const recommendMoviesByGenre = async (
         import.meta.env.VITE_TMDB_API_BASE_URL
       }discover/movie?sort_by=popularity.desc&with_genres=${genres.join(
         "%2C"
-      )}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`,
+      )}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&sort_by=${randomSort}`,
       headers,
     });
 
     if (res.status !== 200)
       throw new Error("Failed to get movie recommendations!");
-    console.log(res.data);
-    return res.data.results;
+
+    // Randomness layer 2: If there are multiple pages, start on a different page
+
+    return res.data;
   } catch (err) {
     console.error(err);
     throw err;

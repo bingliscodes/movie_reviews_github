@@ -1,7 +1,7 @@
 import { Select, createListCollection } from "@chakra-ui/react";
 
 import { movieRecommendationData } from "../utils/js/movieRecommender";
-// example question
+
 const questionsData = movieRecommendationData;
 
 export default function MultipleChoiceQuestions({

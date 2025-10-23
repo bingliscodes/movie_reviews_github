@@ -7,6 +7,7 @@ import {
   genresMap,
   getTimePeriod,
   introduceRandomness,
+  introduceRandomSort,
 } from "../utils/js/movieRecommender";
 import { recommendMoviesByGenre } from "../utils/js/apiCalls";
 import MultipleChoiceQuestions from "./MultipleChoiceQuestions";
@@ -36,12 +37,19 @@ export default function MovieRecommender({ setMovieRecsData }) {
     const top3Genres = getTopNGenres(updatedGenres);
     const mappedGenres = top3Genres.map((genre) => genresMap[genre]);
     const { minYear, maxYear } = getTimePeriod(answers);
+    const randomSort = introduceRandomSort();
 
     try {
-      const res = await recommendMoviesByGenre(mappedGenres, minYear, maxYear);
-      console.log("results:", res);
+      const data = await recommendMoviesByGenre(
+        mappedGenres,
+        minYear,
+        maxYear,
+        randomSort
+      );
+      console.log("query data:", data);
       // Filter to top 10
-      const filteredRes = res.slice(0, 10);
+
+      const filteredRes = data.results.slice(0, 10);
       const movieRecs = filteredRes.map((el) => ({
         title: el.title,
         rating: el.vote_average,

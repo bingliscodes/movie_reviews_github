@@ -1,15 +1,4 @@
-const moodToGenres = {
-  excited: ["Action", "Adventure", "Thriller", "Science Fiction"],
-  sad: ["Drama", "Romance"],
-  goofy: ["Comedy", "Family", "Animation"],
-  happy: ["Comedy", "Adventure", "Music"],
-  scared: ["Horror", "Thriller"],
-  angry: ["Crime", "War", "Action"],
-  cheesy: ["Romance", "TV Movie", "Comedy"],
-  creative: ["Documentary", "Science Fiction", "History"],
-  artsy: ["Documentary", "History", "Music", "Artsy"],
-};
-
+// Mapping of genres to TMDB genre ids that are needed for making the API call
 export const genresMap = {
   Action: 28,
   Adventure: 12,
@@ -30,16 +19,6 @@ export const genresMap = {
   Thriller: 53,
   War: 10752,
   Western: 37,
-};
-
-export const getGenresFromMoods = (moods) => {
-  const genres = new Set();
-  for (const mood of moods) {
-    const mappedGenres = moodToGenres[mood] || [];
-    mappedGenres.forEach((genre) => genres.add(genresMap[genre]));
-  }
-
-  return Array.from(genres);
 };
 
 export const movieRecommendationData = [
@@ -268,12 +247,11 @@ const getRandomInt = (min, max) => {
 export const introduceRandomness = (genreScores) => {
   /* Takes in an object of genre scores, then randomly adds 0-2 points to each genre */
   const updatedScores = { ...genreScores };
-  console.log("pre: ", updatedScores);
+
   Object.keys(updatedScores).forEach((genre) => {
     updatedScores[genre] += getRandomInt(0, 2);
   });
 
-  console.log("post: ", updatedScores);
   return updatedScores;
 };
 
@@ -290,5 +268,28 @@ export const getTopNGenres = (genres, n = 3) => {
         requiredObj[key] = genres[key];
       }
     });
+
   return Object.keys(requiredObj);
 };
+
+const sortDiscoverBy = [
+  "original_title.asc",
+  "original_title.desc",
+  "popularity.asc",
+  "popularity.desc",
+  "revenue.asc",
+  "revenue.desc",
+  "primary_release_date.asc",
+  "title.asc",
+  "title.desc",
+  "primary_release_date.desc",
+  // "vote_average.asc",
+  // "vote_average.desc",
+  "vote_count.asc",
+  "vote_count.desc",
+];
+
+// Basically we want to pick a random element from the sortDiscoverBy array to apply to the query
+const getRandomArrayValue = (arr) => arr[getRandomInt(0, arr.length - 1)];
+
+export const introduceRandomSort = () => getRandomArrayValue(sortDiscoverBy);

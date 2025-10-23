@@ -15,6 +15,7 @@ export default function MovieTrailer() {
     lg: "500px", // desktops
     xl: "545px", // large screens
   });
+
   let { mediaId } = useParams();
 
   useEffect(() => {
