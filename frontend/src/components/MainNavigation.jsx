@@ -14,7 +14,7 @@ export default function MainNavigation() {
   const { isLoggedIn } = useContext(UserContext);
 
   return (
-    <Box bg="bg.nav" boxShadow="sm" top={0} zIndex={999} w="100%" py={3}>
+    <Box bg="bg.nav" boxShadow="sm" py={3}>
       <Container px={4} width="width">
         <Flex h={12} alignItems="center" justifyContent="space-between">
           {/* Left side: Logo / Home */}

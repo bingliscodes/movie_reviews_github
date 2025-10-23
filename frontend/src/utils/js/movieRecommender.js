@@ -69,7 +69,7 @@ export const movieRecommendationData = [
     question: "What time period do you enjoy?",
     answers: [
       { label: "Fresh out of the theatres! (within last 2 years)", value: "a" },
-      { label: "Something current (2010 - current year)", value: "b" },
+      { label: "Something current (> 2010)", value: "b" },
       { label: "Late 90's / early 2000's vibes", value: "c" },
       { label: "Old-ish ('1970 - 1990')", value: "d" },
       { label: "Pre-disco (< 1970)", value: "e" },
@@ -288,15 +288,15 @@ export const getTopNGenres = (genres, n = 3) => {
 };
 
 const sortDiscoverBy = [
-  "original_title.asc",
-  "original_title.desc",
+  // "original_title.asc",
+  // "original_title.desc",
   // "popularity.asc",
   "popularity.desc",
-  // "revenue.asc",
+  "revenue.asc",
   "revenue.desc",
   "primary_release_date.asc",
-  "title.asc",
-  "title.desc",
+  // "title.asc",
+  // "title.desc",
   "primary_release_date.desc",
   // "vote_average.asc",
   // "vote_average.desc",

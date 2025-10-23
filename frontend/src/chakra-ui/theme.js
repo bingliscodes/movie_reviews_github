@@ -62,9 +62,9 @@ export const system = createSystem(defaultConfig, {
               base: "20rem",
               sm: "30rem",
               md: "48rem",
-              lg: "62rem",
-              xl: "62rem",
-              "2xl": "62rem",
+              lg: "48rem",
+              xl: "48rem",
+              "2xl": "48rem",
             },
           },
         },
@@ -73,7 +73,7 @@ export const system = createSystem(defaultConfig, {
     tokens: {
       colors: {
         primary: { value: "black" },
-        secondary: { value: "white" },
+        secondary: { value: "colors.gray.100" },
       },
       // (you can also define other token groups: spacing, sizes, etc.)
     },

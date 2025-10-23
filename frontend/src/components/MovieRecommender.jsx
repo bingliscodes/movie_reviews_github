@@ -74,7 +74,9 @@ export default function MovieRecommender({ setMovieRecsData }) {
     <>
       <Dialog.Root onExitComplete={handleClearAnswers}>
         <Dialog.Trigger margin={4} asChild>
-          <Button variant="solid">Get movie recommendations</Button>
+          <Button bg="bg.menuItem" color="text.primaryBtn">
+            Get movie recommendations
+          </Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop />
