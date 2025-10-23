@@ -107,6 +107,7 @@ export default function HomePage() {
     popularMovieCarouselData = popularMovieData.map((el) => ({
       title: el.title,
       rating: el.vote_average,
+      voteCount: el.vote_count,
       releaseDate: el.release_date,
       img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
       id: el.id,
@@ -117,6 +118,7 @@ export default function HomePage() {
     trendingMovieCarouselData = trendingMovieData.map((el) => ({
       title: el.title,
       rating: el.vote_average,
+      voteCount: el.vote_count,
       releaseDate: el.release_date,
       img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
       id: el.id,
@@ -127,6 +129,7 @@ export default function HomePage() {
     popularShowCarouselData = popularShowData.map((el) => ({
       title: el.name,
       rating: el.vote_average,
+      voteCount: el.vote_count,
       releaseDate: el.first_air_date,
       img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
       id: el.id,
@@ -137,6 +140,7 @@ export default function HomePage() {
     trendingShowCarouselData = trendingShowData.map((el) => ({
       title: el.name,
       rating: el.vote_average,
+      voteCount: el.vote_count,
       releaseDate: el.first_air_date,
       img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
       id: el.id,

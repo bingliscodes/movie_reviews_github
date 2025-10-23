@@ -9,6 +9,7 @@ export default function CarouselCard({
   releaseDate,
   id,
   type,
+  voteCount,
 }) {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -41,7 +42,9 @@ export default function CarouselCard({
       </Card.Body>
 
       <Card.Footer p="3" justifyContent="space-between">
-        <Text fontSize="sm">⭐ {Math.round(rating * 10) / 10}</Text>
+        <Text fontSize="sm">
+          ⭐ {Math.round(rating * 10) / 10} ({voteCount})
+        </Text>
         <Text fontSize="sm">{new Date(releaseDate).toLocaleDateString()}</Text>
       </Card.Footer>
     </Card.Root>

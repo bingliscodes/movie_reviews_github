@@ -53,6 +53,7 @@ export default function MovieRecommender({ setMovieRecsData }) {
       const movieRecs = filteredRes.map((el) => ({
         title: el.title,
         rating: el.vote_average,
+        voteCount: el.vote_count,
         releaseDate: el.release_date,
         img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
         id: el.id,

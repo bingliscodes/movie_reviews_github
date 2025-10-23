@@ -245,7 +245,7 @@ export const recommendMoviesByGenre = async (
         import.meta.env.VITE_TMDB_API_BASE_URL
       }discover/movie?sort_by=popularity.desc&with_genres=${genres.join(
         "%2C"
-      )}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&sort_by=${randomSort}`,
+      )}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&vote_average.gte=5&vote_count.gte=10&sort_by=${randomSort}`,
       headers,
     });
 

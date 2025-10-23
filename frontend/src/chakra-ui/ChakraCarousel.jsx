@@ -153,6 +153,7 @@ export default function ChakraCarousel({ carouselData = [], title, type }) {
                 key={el.id}
                 img={el.img}
                 rating={el.rating}
+                voteCount={el.voteCount}
                 title={el.title}
                 releaseDate={el.releaseDate}
                 id={el.id}
