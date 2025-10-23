@@ -28,7 +28,7 @@ export default function SignupCard() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Center width="7xl">
+      <Center width="width">
         <Flex direction="column" gap="4" py={6} w="50%">
           <Field.Root>
             <Field.Label>First Name</Field.Label>

@@ -15,13 +15,8 @@ export default function MainNavigation() {
 
   return (
     <Box bg="bg.nav" boxShadow="sm" top={0} zIndex={999} w="100%" py={3}>
-      <Container maxW="7xl" px={6}>
-        <Flex
-          h={16}
-          alignItems="center"
-          justifyContent="space-between"
-          w="100%"
-        >
+      <Container px={4} width="width">
+        <Flex h={12} alignItems="center" justifyContent="space-between">
           {/* Left side: Logo / Home */}
           <NavLink to="/" style={{ textDecoration: "none" }}>
             <Box

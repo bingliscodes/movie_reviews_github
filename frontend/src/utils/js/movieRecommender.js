@@ -107,12 +107,12 @@ export const updateGenreScores = (answers) => {
         genreScores.Action += 3;
         genreScores.Thriller += 1;
         genreScores.Crime += 1;
-        genreScores.Mystery += 1;
         genreScores.Adventure += 2;
       }
       if (ans === "b") {
-        genreScores.Fantasy += 3;
-        genreScores["Science Fiction"] += 3;
+        genreScores.Fantasy += 2;
+        genreScores["Science Fiction"] += 2;
+        genreScores.Adventure += 1;
       }
       if (ans === "c") {
         genreScores.Drama += 3;
@@ -122,6 +122,7 @@ export const updateGenreScores = (answers) => {
         genreScores.Music += 2;
         genreScores.Comedy += 2;
         genreScores["TV Movie"] += 2;
+        genreScores.Family += 1;
       }
       if (ans === "e") {
         genreScores.History += 3;
@@ -129,12 +130,13 @@ export const updateGenreScores = (answers) => {
         genreScores.Western += 1;
       }
     }
-
     if (idx === 1) {
       if (ans === "a") {
-        genreScores.Action += 3;
+        genreScores.Action += 2;
         genreScores.Thriller += 1;
         genreScores.Crime += 1;
+        genreScores.War += 1;
+        genreScores.Adventure += 1;
       }
       if (ans === "b") {
         genreScores.Drama += 3;
@@ -142,17 +144,20 @@ export const updateGenreScores = (answers) => {
       }
       if (ans === "c") {
         genreScores.Comedy += 3;
+        genreScores.Family += 1;
+        genreScores.Animation += 2;
       }
       if (ans === "d") {
         genreScores.Music += 2;
         genreScores.Comedy += 2;
+        genreScores.Fantasy += 1;
+        genreScores["Science Fiction"] += 1;
       }
       if (ans === "e") {
         genreScores.Crime += 2;
         genreScores.Mystery += 2;
-        genreScores.Thriller += 2;
+        genreScores.Thriller += 3;
         genreScores.Horror += 2;
-        genreScores.Adventure += 1;
       }
     }
 
@@ -162,19 +167,25 @@ export const updateGenreScores = (answers) => {
         genreScores.War += 1;
         genreScores.Western += 1;
         genreScores.Adventure += 2;
+        genreScores.Drama += 1;
+        genreScores.Fantasy += 1;
       }
       if (ans === "b") {
         genreScores.Drama += 2;
         genreScores.Romance += 2;
+        genreScores.Music += 1;
       }
       if (ans === "c") {
         genreScores.Comedy += 2;
         genreScores.Action += 2;
         genreScores.Family += 1;
+        genreScores.Adventure += 1;
       }
       if (ans === "d") {
         genreScores.Documentary += 2;
         genreScores.Animation += 1;
+        genreScores.History += 1;
+        genreScores.Music += 1;
       }
       if (ans === "e") {
         genreScores.Crime += 2;
@@ -190,6 +201,7 @@ export const updateGenreScores = (answers) => {
         genreScores.Thriller += 2;
         genreScores.Crime += 2;
         genreScores.Adventure += 2;
+        genreScores.War += 1;
       }
       if (ans === "b") {
         genreScores.Romance += 3;
@@ -205,10 +217,13 @@ export const updateGenreScores = (answers) => {
         genreScores["Science Fiction"] += 2;
         genreScores.Documentary += 1;
         genreScores.History += 1;
+        genreScores.Animation += 1;
       }
       if (ans === "e") {
         genreScores.Comedy += 2;
         genreScores["TV Movie"] += 2;
+        genreScores.Animation += 1;
+        genreScores.Family += 1;
       }
     }
   });

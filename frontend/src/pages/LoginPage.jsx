@@ -25,7 +25,7 @@ export default function LoginCard() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Center width="7xl">
+      <Center w="width">
         <Flex direction="column" gap="4" py={6} w="50%">
           <Field.Root>
             <Field.Label>Email Address</Field.Label>
