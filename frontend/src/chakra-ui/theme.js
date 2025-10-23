@@ -49,12 +49,22 @@ export const system = createSystem(defaultConfig, {
         width: {
           DEFAULT: {
             value: {
-              base: "0rem",
+              base: "20rem",
               sm: "30rem",
               md: "48rem",
               lg: "62rem",
               xl: "80rem",
               "2xl": "96rem",
+            },
+          },
+          form: {
+            value: {
+              base: "20rem",
+              sm: "30rem",
+              md: "48rem",
+              lg: "62rem",
+              xl: "62rem",
+              "2xl": "62rem",
             },
           },
         },
