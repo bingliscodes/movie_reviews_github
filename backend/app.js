@@ -16,7 +16,7 @@ import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
 
 const corsOptions = {
-  origin: ['http://localhost:5173'], // allow both in dev
+  origin: ['http://localhost:5173', 'https://benmedia-test.netlify.app/'], // allow both in dev
   credentials: true, // if you’re sending cookies / auth headers
 };
 
@@ -60,10 +60,6 @@ app.use('/api', limiter);
 // Data sanitization against XSS
 // app.use(xss());
 
-// Test Route
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
 // ROUTES
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
