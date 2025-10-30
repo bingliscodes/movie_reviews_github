@@ -46,8 +46,6 @@ export default function MovieRecommender({ setMovieRecsData }) {
         maxYear,
         randomSort
       );
-      console.log("query data:", data);
-      // Filter to top 10
 
       const filteredRes = data.results.slice(0, 10);
       const movieRecs = filteredRes.map((el) => ({
