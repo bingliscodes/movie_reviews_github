@@ -58,6 +58,7 @@ export const login = catchAsync(async (req, res, next) => {
 });
 
 export const logout = (req, res) => {
+  console.log(process.env.NODE_ENV);
   res.clearCookie('jwt', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
