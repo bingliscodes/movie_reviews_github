@@ -41,7 +41,6 @@ export const signup = catchAsync(async (req, res, next) => {
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   // 1) Check if email and password are populated
   if (!email || !password)
@@ -58,10 +57,10 @@ export const login = catchAsync(async (req, res, next) => {
 });
 
 export const logout = (req, res) => {
-  console.log(process.env.NODE_ENV);
   res.clearCookie('jwt', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
   });
   res.status(200).json({ status: 'success' });
 };
