@@ -16,7 +16,7 @@ import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://benmedia-test.netlify.app'], // allow both in dev
+  origin: ['http://localhost:5173', 'https://mediacat.netlify.app'], // allow both in dev
   credentials: true, // if you’re sending cookies / auth headers
 };
 
