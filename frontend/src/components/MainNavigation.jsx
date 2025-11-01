@@ -1,11 +1,20 @@
 "use client";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import { Box, Flex, Button, Stack, Container } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Button,
+  Stack,
+  Container,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { useContext } from "react";
 import { HiMiniUserCircle } from "react-icons/hi2";
-
 import { ColorModeButton } from "@/components/ui/color-mode";
+
+import logo from "../assets/MediaCatLogo.svg";
 import { UserContext } from "../store/UserContext";
 import { logout } from "../utils/js/authentication";
 
@@ -25,7 +34,15 @@ export default function MainNavigation() {
               color="logoColor"
               _hover={{ textDecoration: "none", color: "blue.400" }}
             >
-              🎬 Ben Movies
+              <Flex align="center">
+                MediaCat
+                <Image
+                  marginLeft={4}
+                  src={logo}
+                  alt="MediaCat Logo"
+                  boxSize="4rem"
+                />
+              </Flex>
             </Box>
           </NavLink>
 
