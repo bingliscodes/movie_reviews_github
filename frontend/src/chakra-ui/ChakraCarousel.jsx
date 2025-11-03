@@ -53,7 +53,12 @@ const settings = {
   ],
 };
 
-export default function ChakraCarousel({ carouselData = [], title, type }) {
+export default function ChakraCarousel({
+  carouselData = [],
+  title,
+  type,
+  isRec = false,
+}) {
   const [slider, setSlider] = useState(null);
 
   // These are the breakpoints which changes the position of the buttons as the screen size changes
@@ -158,6 +163,7 @@ export default function ChakraCarousel({ carouselData = [], title, type }) {
                 releaseDate={el.releaseDate}
                 id={el.id}
                 type={type}
+                isRec={isRec}
               />
             );
           })}

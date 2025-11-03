@@ -1,6 +1,6 @@
 import { Select, createListCollection } from "@chakra-ui/react";
 
-import { movieRecommendationData } from "../utils/js/movieRecommender";
+import { movieRecommendationData } from "../../utils/js/movieRecommender";
 
 const questionsData = movieRecommendationData;
 

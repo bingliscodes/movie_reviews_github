@@ -93,6 +93,7 @@ export default function CastCarousel({ credits }) {
         mt={8}
         mb={4}
         px={2}
+        py={2}
         borderBottom="2px solid"
         borderColor="blue.400"
       >

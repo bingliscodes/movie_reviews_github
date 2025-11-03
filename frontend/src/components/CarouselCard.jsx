@@ -1,6 +1,8 @@
 import { Card, Image, Text } from "@chakra-ui/react";
-
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+
+import { MovieDetailsModalContext } from "../store/MovieDetailsModalContext";
 
 export default function CarouselCard({
   title,
@@ -10,9 +12,17 @@ export default function CarouselCard({
   id,
   type,
   voteCount,
+  isRec,
 }) {
+  const { setModalIsOpen, setMediaId } = useContext(MovieDetailsModalContext);
+
   const navigate = useNavigate();
   const handleClick = () => {
+    setMediaId(id);
+    if (isRec) {
+      setModalIsOpen(true);
+      return;
+    }
     navigate(`/${type}/${id}`);
   };
 

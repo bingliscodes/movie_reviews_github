@@ -5,7 +5,8 @@ import { fetchData, fetchMediaDetails } from "../utils/js/apiCalls";
 import { UserContext } from "../store/UserContext";
 import SearchBar from "../components/SearchBar";
 import ChakraCarousel from "../chakra-ui/ChakraCarousel";
-import MovieRecommender from "../components/MovieRecommender";
+import MovieRecommender from "../components/MovieReccomendations/MovieRecommender";
+import MovieDetailsModal from "../components/MovieReccomendations/MovieDetailsModal";
 
 export default function HomePage() {
   const { userData, isLoggedIn } = useContext(UserContext);
@@ -149,6 +150,7 @@ export default function HomePage() {
 
   return (
     <>
+      <MovieDetailsModal />
       <SearchBar />
       <MovieRecommender setMovieRecsData={setMovieRecsData} />
 
@@ -157,6 +159,7 @@ export default function HomePage() {
           carouselData={movieRecsData}
           title="Personalized Movie Recommendations"
           type="movie"
+          isRec={true}
         />
       )}
 

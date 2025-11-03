@@ -15,16 +15,17 @@ import { useParams } from "react-router-dom";
 import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { ListContext } from "../store/ListContext";
 import { UserContext } from "../store/UserContext";
+import { MovieDetailsModalContext } from "../store/MovieDetailsModalContext";
 import MovieTrailer from "../components/MovieTrailer";
 import CastCarousel from "../components/CastCarousel";
 import { ModifyListButton } from "../components/ModifyListButtons";
 
 export default function MovieDetails({ type }) {
-  const { mediaId } = useParams();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const { mediaId } = useContext(MovieDetailsModalContext);
   const userLists = useContext(ListContext);
   const { isLoggedIn } = useContext(UserContext);
   const watchList = userLists?.movieWatchlist || [];

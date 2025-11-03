@@ -1,10 +1,4 @@
-import {
-  Button,
-  Portal,
-  CloseButton,
-  Dialog,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Button, Portal, CloseButton, Dialog } from "@chakra-ui/react";
 import { useState } from "react";
 
 import {
@@ -14,8 +8,8 @@ import {
   getTimePeriod,
   introduceRandomness,
   introduceRandomSort,
-} from "../utils/js/movieRecommender";
-import { recommendMoviesByGenre } from "../utils/js/apiCalls";
+} from "../../utils/js/movieRecommender";
+import { recommendMoviesByGenre } from "../../utils/js/apiCalls";
 import MultipleChoiceQuestions from "./MultipleChoiceQuestions";
 
 export default function MovieRecommender({ setMovieRecsData }) {

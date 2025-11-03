@@ -14,8 +14,8 @@ function App() {
     <Routes>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/movie/:mediaId" element={<MovieDetails />} />
-        <Route path="/tv/:mediaId" element={<TvDetails />} />
+        <Route path="/movie/:mediaId?" element={<MovieDetails />} />
+        <Route path="/tv/:mediaId?" element={<TvDetails />} />
         <Route path="me" element={<UserDetails />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
