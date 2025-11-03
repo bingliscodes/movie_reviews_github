@@ -1,4 +1,10 @@
-import { Button, Portal, CloseButton, Dialog } from "@chakra-ui/react";
+import {
+  Button,
+  Portal,
+  CloseButton,
+  Dialog,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 import {
@@ -16,6 +22,7 @@ export default function MovieRecommender({ setMovieRecsData }) {
   // This stores the checked items in an array called "value"
   const [questionIdx, setQuestionIdx] = useState(0);
   const [answers, setAnswer] = useState([0, 0, 0, 0, 0]);
+  const [open, setOpen] = useState(false);
 
   const handleIncrementQuestion = () => {
     setQuestionIdx((prevIdx) => {
@@ -60,6 +67,8 @@ export default function MovieRecommender({ setMovieRecsData }) {
     } catch (err) {
       console.error(err);
       throw err;
+    } finally {
+      setOpen(false);
     }
   };
 
@@ -70,7 +79,11 @@ export default function MovieRecommender({ setMovieRecsData }) {
 
   return (
     <>
-      <Dialog.Root onExitComplete={handleClearAnswers}>
+      <Dialog.Root
+        open={open}
+        onOpenChange={(e) => setOpen(e.open)}
+        onExitComplete={handleClearAnswers}
+      >
         <Dialog.Trigger margin={4} asChild>
           <Button bg="bg.menuItem" color="text.primaryBtn">
             Get movie recommendations

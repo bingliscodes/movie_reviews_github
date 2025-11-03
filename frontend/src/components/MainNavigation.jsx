@@ -7,7 +7,7 @@ import RightNavContent from "./RightNavContent";
 
 export default function MainNavigation() {
   return (
-    <VStack bg="bg.nav" boxShadow="sm" px={2} py={3} w="full" spacing={0}>
+    <VStack bg="bg.nav" h={"5rem"} boxShadow="sm" px={2} w="full" spacing={0}>
       <HStack w="full" alignItems="center" p={2} justifyContent="space-between">
         <LeftNavContent />
 
