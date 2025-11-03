@@ -3,6 +3,7 @@ import { fetchMediaDetails } from "../../utils/js/apiCalls";
 import { useState, useEffect } from "react";
 
 import ListCarouselCard from "./ListCarouselCard";
+import ChakraCarousel from "../../chakra-ui/ChakraCarousel";
 
 export default function ListCarousel({ title, type, mediaList }) {
   const [mediaData, setMediaData] = useState();
@@ -33,28 +34,17 @@ export default function ListCarousel({ title, type, mediaList }) {
   if (error) return <Center>Error loading data!</Center>;
 
   if (!mediaData) return <Center> No {type} data available. </Center>;
+
+  const carouselData = mediaData.map((el) => ({
+    title: type === "movie" ? el.title : el.name,
+    rating: el.vote_average,
+    voteCount: el.vote_count,
+    releaseDate: type === "movie" ? el.release_date : el.first_air_date,
+    img: `https://image.tmdb.org/t/p/w500/${el.poster_path}`,
+    id: el.id,
+  }));
+
   return (
-    <>
-      <Text
-        w="full"
-        fontSize={{ base: "2xl", md: "3xl" }}
-        fontWeight="bold"
-        textAlign="left"
-        mt={8}
-        mb={4}
-        px={2}
-        borderBottom="2px solid"
-        borderColor="blue.400"
-      >
-        {title}
-      </Text>
-      {mediaData.map((media) => (
-        <ListCarouselCard
-          key={media.id}
-          title={type === "movie" ? media.title : media.name}
-          img={media.poster_path}
-        />
-      ))}
-    </>
+    <ChakraCarousel title={title} type={type} carouselData={carouselData} />
   );
 }

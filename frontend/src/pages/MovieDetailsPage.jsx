@@ -2,7 +2,6 @@
 
 import {
   Badge,
-  Button,
   Center,
   Flex,
   Heading,
@@ -15,6 +14,7 @@ import { useParams } from "react-router-dom";
 
 import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { ListContext } from "../store/ListContext";
+import { UserContext } from "../store/UserContext";
 import MovieTrailer from "../components/MovieTrailer";
 import CastCarousel from "../components/CastCarousel";
 import { ModifyListButton } from "../components/ModifyListButtons";
@@ -26,6 +26,7 @@ export default function MovieDetails({ type }) {
   const [error, setError] = useState(false);
 
   const userLists = useContext(ListContext);
+  const { isLoggedIn } = useContext(UserContext);
   const watchList = userLists?.movieWatchlist || [];
 
   useEffect(() => {
@@ -138,27 +139,29 @@ export default function MovieDetails({ type }) {
                 ))}
               </Stack>
 
-              {/* Buttons */}
-              <Stack direction="row" mt={4}>
-                <ModifyListButton
-                  mediaType="movie"
-                  listType="wishlist"
-                  mediaId={mediaDetails.id}
-                />
-                <ModifyListButton
-                  mediaType="movie"
-                  listType="watchlist"
-                  mediaId={mediaDetails.id}
-                />
-
-                {watchList.includes(mediaDetails.id) && (
+              {/* Buttons - Should only show if logged in */}
+              {isLoggedIn && (
+                <Stack direction="row" mt={4}>
                   <ModifyListButton
                     mediaType="movie"
-                    listType="favorites"
+                    listType="wishlist"
                     mediaId={mediaDetails.id}
                   />
-                )}
-              </Stack>
+                  <ModifyListButton
+                    mediaType="movie"
+                    listType="watchlist"
+                    mediaId={mediaDetails.id}
+                  />
+
+                  {watchList.includes(mediaDetails.id) && (
+                    <ModifyListButton
+                      mediaType="movie"
+                      listType="favorites"
+                      mediaId={mediaDetails.id}
+                    />
+                  )}
+                </Stack>
+              )}
 
               {directors &&
                 directors.map((dir) => (

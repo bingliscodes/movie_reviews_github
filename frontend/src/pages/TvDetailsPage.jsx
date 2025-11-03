@@ -2,7 +2,6 @@
 
 import {
   Badge,
-  Button,
   Center,
   Flex,
   Heading,
@@ -14,6 +13,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMediaDetails } from "../utils/js/apiCalls";
 import { ListContext } from "../store/ListContext";
+import { UserContext } from "../store/UserContext";
 import CastCarousel from "../components/CastCarousel";
 import { ModifyListButton } from "../components/ModifyListButtons";
 
@@ -24,6 +24,7 @@ export default function TvDetails() {
   const [error, setError] = useState(false);
 
   const userLists = useContext(ListContext);
+  const { isLoggedIn } = useContext(UserContext);
   const watchList = userLists?.movieWatchlist || [];
 
   useEffect(() => {
@@ -137,26 +138,28 @@ export default function TvDetails() {
               </Stack>
 
               {/* Buttons */}
-              <Stack direction="row" mt={4}>
-                <ModifyListButton
-                  mediaType="tv"
-                  listType="wishlist"
-                  mediaId={mediaDetails.id}
-                />
-                <ModifyListButton
-                  mediaType="tv"
-                  listType="watchlist"
-                  mediaId={mediaDetails.id}
-                />
-
-                {watchList.includes(mediaDetails.id) && (
+              {isLoggedIn && (
+                <Stack direction="row" mt={4}>
                   <ModifyListButton
                     mediaType="tv"
-                    listType="favorites"
+                    listType="wishlist"
                     mediaId={mediaDetails.id}
                   />
-                )}
-              </Stack>
+                  <ModifyListButton
+                    mediaType="tv"
+                    listType="watchlist"
+                    mediaId={mediaDetails.id}
+                  />
+
+                  {watchList.includes(mediaDetails.id) && (
+                    <ModifyListButton
+                      mediaType="tv"
+                      listType="favorites"
+                      mediaId={mediaDetails.id}
+                    />
+                  )}
+                </Stack>
+              )}
 
               {mediaDetails.created_by &&
                 mediaDetails.created_by.map((el) => (

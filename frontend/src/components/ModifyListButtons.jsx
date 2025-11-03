@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@chakra-ui/react";
+import { Tooltip } from "@/components/ui/tooltip";
 
 import { useContext } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -67,25 +68,26 @@ export const ModifyListButton = ({ mediaType, listType, mediaId }) => {
   const isInList = list.includes(mediaId);
 
   return (
-    <Button
-      rounded="full"
-      size="xs"
-      bg="blue.400"
-      color="white"
-      _hover={{ bg: "blue.500" }}
-      _focus={{ bg: "blue.500" }}
-      onClick={async (e) => {
-        e.stopPropagation();
+    <Tooltip content={isInList ? `Remove from ${label}` : `Add to ${label}`}>
+      <Button
+        rounded="full"
+        size="xs"
+        bg="blue.400"
+        color="white"
+        _hover={{ bg: "blue.500" }}
+        _focus={{ bg: "blue.500" }}
+        onClick={async (e) => {
+          e.stopPropagation();
 
-        isInList
-          ? await removeItem(listType, mediaType, mediaId)
-          : await addItem(listType, mediaType, mediaId);
+          isInList
+            ? await removeItem(listType, mediaType, mediaId)
+            : await addItem(listType, mediaType, mediaId);
 
-        await refreshLists();
-      }}
-    >
-      {/* {isInList ? `Remove from ${label}` : `Add to ${label}`} */}
-      {isInList ? <RemoveIcon /> : <AddIcon />}
-    </Button>
+          await refreshLists();
+        }}
+      >
+        {isInList ? <RemoveIcon /> : <AddIcon />}
+      </Button>
+    </Tooltip>
   );
 };

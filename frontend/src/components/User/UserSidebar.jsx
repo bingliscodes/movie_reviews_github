@@ -16,6 +16,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { HiEye } from "react-icons/hi2";
 
 import ListCarousel from "./ListCarousel";
+import ChakraCarousel from "../../chakra-ui/ChakraCarousel";
 import { ListContext } from "../../store/ListContext";
 import { UserContext } from "../../store/UserContext";
 import UserSettings from "./UserSettings";
